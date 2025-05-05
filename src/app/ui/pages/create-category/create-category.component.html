@@ -1,0 +1,29 @@
+<!-- src/app/ui/pages/create-category/create-category.component.html -->
+<div class="create-category-page">
+  <app-admin-sidebar></app-admin-sidebar>
+
+  <div class="page-wrapper">
+    <app-admin-topbar
+      [userName]="userName"
+      [userAvatarUrl]="userAvatarUrl">
+    </app-admin-topbar>
+
+    <main class="admin-content">
+      <h2>Crear Categoría</h2>
+
+      <!-- Formulario emite el evento 'created' con la categoría nueva -->
+      <app-category-form (created)="handleNewCategory($event)"></app-category-form>
+
+      <!-- Tabla recibe el array de categorías, el total y emite pageChange -->
+      <app-categories-table
+        [categories]="categories"
+        [totalElements]="totalElements"
+        (pageChange)="loadCategories($event.page, $event.size, $event.orderAsc)">
+      </app-categories-table>
+    </main>
+
+  </div>
+
+  <app-bottom-banner></app-bottom-banner>
+</div>
+

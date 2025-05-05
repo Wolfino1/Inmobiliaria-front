@@ -1,0 +1,17 @@
+<app-top-navbar></app-top-navbar>
+
+<div class="home-container">
+  <h1 class="home-title">Encuentra tu casa perfecta</h1>
+
+  <app-search-banner [categories]="categories"></app-search-banner>
+
+  <div class="property-list">
+    <app-property-card
+      *ngFor="let property of properties"
+      [property]="property">
+    </app-property-card>
+  </div>
+</div>
+
+<app-bottom-banner></app-bottom-banner>
+

@@ -1,0 +1,111 @@
+/* src/app/ui/components/molecules/location-form/location-form.component.scss */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:host {
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+  font-family: 'Manrope', sans-serif;
+}
+
+:host form {
+  max-width: 600px; 
+  width: 100%;     
+  margin: 2rem auto;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+/* Grupos de campo */
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: #2563eb;
+  }
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.875rem;
+  color: #6B7280;
+  z-index: 1;    
+}
+
+.error,
+.text-danger {
+  margin-top: 0.25rem;
+
+  small,
+  div {
+    color: #dc2626;
+    font-size: 0.875rem;
+  }
+}
+
+button[type="submit"] {
+  display: block;
+  margin-left: auto;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #2563EB;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:disabled {
+    background-color: #2563EB;
+    cursor: not-allowed;
+  }
+
+  &:hover:enabled {
+    background-color: #1d4ed8;
+  }
+}
+
+.form-error {
+  margin-top: 1rem;
+  small {
+    color: #dc2626;
+  }
+}
+.form-success {
+  margin-top: 1rem;
+  color: #16a34a;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+
+  small {
+    font-size: 0.875rem;
+  }
+}

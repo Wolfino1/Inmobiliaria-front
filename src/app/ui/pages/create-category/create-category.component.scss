@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap');
+
+.create-category-page {
+  /* Fondo uniforme en toda la página antes del bottom-banner */
+  background-color: #f9fafb;
+  display: flex;
+  flex-wrap: wrap;    /* permite que el bottom-banner rompa la fila */
+  min-height: 100vh;
+
+  .page-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Fondo del contenido (podrías quitar si quieres usar solo el de .create-category-page) */
+    background-color: #f9fafb;
+
+    app-admin-topbar {
+      z-index: 1;
+    }
+
+    .admin-content {
+      margin-left: 220px;    /* ancho sidebar (200px) + 20px extra */
+      flex: 1;               /* empuja hacia abajo para separar el footer */
+      padding: 2rem 3rem;
+      padding-bottom: 4rem;  /* espacio para el bottom-banner */
+      font-family: 'Manrope', sans-serif;
+
+      h2 {
+        margin-bottom: 1.5rem;
+        color: #111827;
+      }
+
+      .category-form {
+        width: 100%;
+        max-width: none;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+        .form-group {
+          margin-bottom: 1.25rem;
+
+          label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+          }
+
+          input,
+          textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+
+            &:focus {
+              border-color: #2563eb;
+            }
+          }
+
+          .error {
+            margin-top: 0.25rem;
+
+            small {
+              color: #dc2626;
+              font-size: 0.875rem;
+            }
+          }
+        }
+
+        button {
+          display: block;
+          margin-left: auto;
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+          font-weight: 600;
+          background-color: #2563eb;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+
+          &:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+          }
+
+          &:hover:enabled {
+            background-color: #1d4ed8;
+          }
+        }
+      }
+
+      .categories-list {
+        max-width: 800px;
+        width: 100%;
+        margin: 2rem auto 0;
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+
+          th,
+          td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+          }
+
+          th {
+            text-align: left;
+            background-color: #f3f4f6;
+          }
+        }
+      }
+    }
+  }
+
+  /* footer ocupa toda la fila inferior */
+  > app-bottom-banner {
+    flex: 0 0 100%;
+  }
+}
+

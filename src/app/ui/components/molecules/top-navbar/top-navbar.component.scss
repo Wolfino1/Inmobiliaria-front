@@ -1,0 +1,92 @@
+.navbar {
+  width: 100vw; 
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px; 
+  height: 45px; 
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px; 
+  margin-right: 70px; 
+}
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-link {
+    display: inline-block;
+  }
+
+  .logo {
+    height: 25px; 
+    width: auto;  
+    margin-left: 10px;
+    margin-top: 2px;
+  }
+  
+  
+  .navbar-center {
+    flex: 1; 
+    justify-content: center;
+  }
+  
+  .menu-link {
+    font-size: 1rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+  
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .menu-link {
+    font-size: 1rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+  
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+  
+  .login-button {
+    background-color: #2563eb; 
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .login-button:hover {
+    background-color: #1d4ed8;
+  }
+  .sell-button {
+    margin-right: 30px; 
+    text-decoration: none;
+    color : black;
+  }

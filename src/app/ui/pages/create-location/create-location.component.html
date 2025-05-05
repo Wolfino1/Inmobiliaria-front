@@ -1,0 +1,20 @@
+<div class="create-location-page">
+  <app-admin-sidebar></app-admin-sidebar>
+
+  <div class="page-wrapper">
+    <app-admin-topbar
+      [userName]="userName"
+      [userAvatarUrl]="userAvatarUrl">
+    </app-admin-topbar>
+
+    <main class="admin-content">
+      <h2>Crear Ubicación</h2>
+
+      <!-- Por ahora reusamos el form de categoría -->
+      <app-location-form></app-location-form>
+      <!-- y quitamos la tabla -->
+    </main>
+  </div>
+
+  <app-bottom-banner></app-bottom-banner>
+</div>

@@ -1,0 +1,34 @@
+<nav class="sidebar">
+  <ul>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a routerLink="/dashboard">
+        <lucide-icon name="Info" class="icon"></lucide-icon>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/categories">
+        <lucide-icon name="Tag" class="icon"></lucide-icon>
+        <span>Categorías</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/properties">
+        <lucide-icon name="Home" class="icon"></lucide-icon>
+        <span>Propiedades</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/users">
+        <lucide-icon name="Users" class="icon"></lucide-icon>
+        <span>Usuarios</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/settings">
+        <lucide-icon name="Settings" class="icon"></lucide-icon>
+        <span>Configuración</span>
+      </a>
+    </li>
+  </ul>
+</nav>

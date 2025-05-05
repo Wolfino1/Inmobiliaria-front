@@ -1,0 +1,52 @@
+/* src/app/ui/organisms/admin-sidebar/admin-sidebar.component.scss */
+.sidebar {
+  position: fixed;
+  top: 60px;      /* altura de la topbar */
+  bottom: 0;      /* llega hasta el fondo del viewport */
+  left: 0;
+  width: 200px;   /* nuevo ancho */
+  padding: 1.5rem 1rem;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  font-family: 'Manrope', sans-serif;
+  overflow-y: auto;
+  z-index: 100;   /* por debajo de la bottom-bar */
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      &.active a {
+        background-color: #e0e7ff;
+        color: #2563eb;
+        font-weight: 600;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        color: #4b5563;
+        transition: background-color 0.2s, color 0.2s;
+
+        .icon {
+          width: 18px;
+          height: 18px;
+        }
+
+        &:hover {
+          background-color: #f3f4f6;
+          color: #2563eb;
+        }
+      }
+    }
+  }
+}

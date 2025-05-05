@@ -1,0 +1,67 @@
+<!-- src/app/ui/components/molecules/category-form/category-form.component.html -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate aria-live="polite" class="category-form">
+  <div class="form-container">
+    <!-- Campo Nombre -->
+    <div class="form-group">
+      <label for="name">
+        Nombre <span aria-hidden="true">*</span>
+      </label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        maxlength="50"
+        placeholder="Ej: Apartamento"
+        aria-required="true"
+        [attr.aria-invalid]="form.get('name')?.invalid"
+      />
+      <div class="char-counter">
+        {{ (form.get('name')?.value || '').length }}/50
+      </div>
+      <div class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+        <small *ngIf="form.get('name')?.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="form.get('name')?.errors?.['maxlength']">Máximo 50 caracteres.</small>
+      </div>
+    </div>
+
+    <!-- Campo Descripción -->
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="3"
+        maxlength="90"
+        placeholder="Descripción (opcional)"
+        [attr.aria-invalid]="form.get('description')?.invalid"
+      ></textarea>
+      <div class="char-counter">
+        {{ (form.get('description')?.value || '').length }}/90
+      </div>
+      <div class="error" *ngIf="form.get('description')?.touched && form.get('description')?.invalid">
+        <small>Máximo 90 caracteres.</small>
+      </div>
+    </div>
+
+    <!-- Mensaje de error genérico -->
+    <div class="form-error" *ngIf="errorMessage" role="alert">
+      <small>{{ errorMessage }}</small>
+    </div>
+    <!-- Mensaje de éxito -->
+    <div class="form-success" *ngIf="successMessage" role="status">
+      <small>{{ successMessage }}</small>
+    </div>
+
+    <!-- Botón Crear -->
+    <div class="button-container">
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        [attr.aria-disabled]="form.invalid"
+        aria-label="Crear categoría"
+      >
+        Crear
+      </button>
+    </div>
+  </div>
+</form>

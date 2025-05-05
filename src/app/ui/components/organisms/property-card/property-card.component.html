@@ -1,0 +1,13 @@
+<!-- property-card.component.html -->
+<article class="property-card">
+  <img [src]="property.imageSrc" alt="Casa" class="property-image">
+  <div class="property-details">
+    <h2 class="property-title">{{ property.title }}</h2>
+    <p class="property-city">{{ property.city }}</p>
+    <p class="property-price">${{ property.price | number:'1.0-0' }}</p>
+    <div class="property-meta">
+      <span><i class="fas fa-bed"></i> {{ property.bedrooms }}</span>
+      <span><i class="fas fa-bath"></i> {{ property.bathrooms }}</span>
+    </div>
+  </div>
+</article>

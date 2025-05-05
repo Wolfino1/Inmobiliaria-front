@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <a routerLink="/">
+      <img src="/assets/logo.png" alt="Logo Hogar360" class="logo">
+    </a>
+  </div>
+
+  <div class="navbar-right">
+    <span class="greeting">Bienvenido, {{ userName }}</span>
+    <img [src]="userAvatarUrl" alt="Avatar usuario" class="avatar">
+  </div>
+</nav>

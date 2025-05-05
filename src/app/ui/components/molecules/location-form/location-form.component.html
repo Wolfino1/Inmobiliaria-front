@@ -1,0 +1,86 @@
+<!-- src/app/ui/components/molecules/location-form/location-form.component.html -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate aria-live="polite" class="location-form">
+  <div class="form-container">
+    <!-- Nombre con contador -->
+    <div class="form-group">
+      <label for="name">
+        Nombre <span aria-hidden="true">*</span>
+      </label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        maxlength="50"
+        placeholder="Ej: Barrio Real"
+        aria-required="true"
+        [attr.aria-invalid]="form.get('name')?.invalid"
+      />
+      <div class="char-counter">
+        {{ (form.get('name')?.value || '').length }}/50
+      </div>
+      <div class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+        <small *ngIf="form.get('name')?.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="form.get('name')?.errors?.['maxlength']">Máximo 50 caracteres.</small>
+      </div>
+    </div>
+
+    <!-- Departamento -->
+    <div class="form-group">
+      <label for="departmentId">
+        Departamento <span aria-hidden="true">*</span>
+      </label>
+      <select
+        id="departmentId"
+        formControlName="departmentId"
+        aria-required="true"
+        [attr.aria-invalid]="form.get('departmentId')?.invalid"
+      >
+        <option [value]="null">Seleccione...</option>
+        <option *ngFor="let d of departments" [value]="d.id">{{ d.name }}</option>
+      </select>
+      <div class="error" *ngIf="form.get('departmentId')?.touched && form.get('departmentId')?.invalid">
+        <small>El departamento es obligatorio.</small>
+      </div>
+    </div>
+
+    <!-- Ciudad -->
+    <div class="form-group">
+      <label for="cityId">
+        Ciudad <span aria-hidden="true">*</span>
+      </label>
+      <select
+        id="cityId"
+        formControlName="cityId"
+        [disabled]="!form.get('departmentId')?.value"
+        [attr.aria-invalid]="form.get('cityId')?.invalid"
+      >
+        <option [value]="null">Seleccione...</option>
+        <option *ngFor="let c of cities" [value]="c.id">{{ c.name }}</option>
+      </select>
+      <div class="error" *ngIf="form.get('cityId')?.touched && form.get('cityId')?.invalid">
+        <small>La ciudad es obligatoria.</small>
+      </div>
+    </div>
+
+    <!-- Mensaje genérico de error -->
+    <div class="form-error" *ngIf="errorMessage" role="alert">
+      <small>{{ errorMessage }}</small>
+    </div>
+    <!-- Mensaje de éxito -->
+    <div class="form-success" *ngIf="successMessage" role="status">
+      <small>{{ successMessage }}</small>
+    </div>
+
+    <!-- Botón Crear -->
+    <div class="button-container">
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        [attr.aria-disabled]="form.invalid"
+        aria-label="Crear ubicación"
+      >
+        Crear
+      </button>
+    </div>
+  </div>
+</form>

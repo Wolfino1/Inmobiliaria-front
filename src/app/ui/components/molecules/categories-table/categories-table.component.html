@@ -1,0 +1,51 @@
+<!-- src/app/ui/components/molecules/categories-table/categories-table.component.html -->
+<section class="categories-list" aria-live="polite">
+  <div *ngIf="errorMessage" class="error" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="!errorMessage" class="categories-table">
+    <caption class="sr-only">Listado de categorías</caption>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cat of categories">
+        <td>{{ cat.name }}</td>
+        <td>{{ cat.description || '—' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Paginación -->
+  <nav *ngIf="!errorMessage && totalPages > 1" class="pagination" aria-label="Paginación de categorías">
+    <button
+      (click)="changePage(page - 1)"
+      [disabled]="page === 0"
+      aria-label="Ir a la página anterior">
+      ‹
+    </button>
+
+    <button
+      *ngFor="let p of pages"
+      (click)="changePage(p)"
+      [class.active]="p === page"
+      [attr.aria-current]="p === page ? 'page' : null"
+      [attr.aria-label]="'Página ' + (p + 1)">
+      {{ p + 1 }}
+    </button>
+
+    <button
+      (click)="changePage(page + 1)"
+      [disabled]="page + 1 >= totalPages"
+      aria-label="Ir a la página siguiente">
+      ›
+    </button>
+  </nav>
+</section>
+
+
+  
