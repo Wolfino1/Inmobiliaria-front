@@ -8,7 +8,6 @@
   font-family: 'Manrope', sans-serif;
 }
 
-/* Estilo del formulario como contenedor */
 :host form {
   margin: 2rem auto;
   background-color: #ffffff;
@@ -18,7 +17,6 @@
   box-sizing: border-box;
 }
 
-/* Grupos de campo */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -46,7 +44,6 @@ select {
   }
 }
 
-/* Validación */
 .text-danger,
 .error {
   margin-top: 0.25rem;
@@ -57,7 +54,6 @@ select {
   }
 }
 
-/* Botones */
 button[type="submit"] {
   display: block;
   margin-left: auto;

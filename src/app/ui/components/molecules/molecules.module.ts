@@ -9,6 +9,9 @@ import { TopNavbarComponent }      from './top-navbar/top-navbar.component';
 import { CategoryFormComponent }   from './category-form/category-form.component';
 import { CategoriesTableComponent }from './categories-table/categories-table.component';
 import { LocationFormComponent }   from './location-form/location-form.component';  
+import { LocationTableComponent }from './location-table/location-table.component';
+
+
 
 import { AtomsModule } from '../atoms/atoms.module';
 
@@ -19,7 +22,8 @@ import { AtomsModule } from '../atoms/atoms.module';
     TopNavbarComponent,
     CategoryFormComponent,
     CategoriesTableComponent,
-    LocationFormComponent
+    LocationFormComponent,
+    LocationTableComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,8 @@ import { AtomsModule } from '../atoms/atoms.module';
     TopNavbarComponent,
     CategoryFormComponent,
     CategoriesTableComponent,
-    LocationFormComponent     
+    LocationFormComponent,
+    LocationTableComponent   
   ]
 })
 export class MoleculesModule {}

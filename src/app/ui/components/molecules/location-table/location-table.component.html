@@ -1,0 +1,17 @@
+<!-- location-table.component.html -->
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Ciudad</th>
+      <th>Departamento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let loc of locations">
+      <td>{{ loc.name }}</td>
+      <td>{{ loc.city.name || '—' }}</td>
+      <td>{{ loc.city.department.name || '—' }}</td>
+    </tr>
+  </tbody>
+</table>

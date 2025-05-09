@@ -28,7 +28,6 @@ getAllCategories(page = 0, size = 10, orderAsc = false)
   );
 }
 
-
   /** POST crea una nueva categoría */
   createCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(`${this.baseUrl}/`, category);

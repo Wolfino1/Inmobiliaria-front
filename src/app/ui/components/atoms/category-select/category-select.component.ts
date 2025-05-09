@@ -18,5 +18,4 @@ export class CategorySelectComponent implements OnInit {
         this.categories = response.content;
       });
   }
-  
 }
