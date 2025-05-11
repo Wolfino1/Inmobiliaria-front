@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService, Category, PagedResult } from 'src/app/shared/services/category.service';
+import { CategoryService, Category, PagedResult } from 'src/app/core/services/category.service';
 
 @Component({
   selector: 'app-create-category',

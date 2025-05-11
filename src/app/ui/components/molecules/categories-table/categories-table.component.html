@@ -1,4 +1,3 @@
-<!-- src/app/ui/components/molecules/categories-table/categories-table.component.html -->
 <section class="categories-list" aria-live="polite">
   <div *ngIf="errorMessage" class="error" role="alert">
     {{ errorMessage }}
@@ -20,7 +19,6 @@
     </tbody>
   </table>
 
-  <!-- Paginación -->
   <nav *ngIf="!errorMessage && totalPages > 1" class="pagination" aria-label="Paginación de categorías">
     <button
       (click)="changePage(page - 1)"
@@ -46,6 +44,3 @@
     </button>
   </nav>
 </section>
-
-
-  

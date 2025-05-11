@@ -1,7 +1,5 @@
-<!-- src/app/ui/components/molecules/category-form/category-form.component.html -->
 <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate aria-live="polite" class="category-form">
   <div class="form-container">
-    <!-- Campo Nombre -->
     <div class="form-group">
       <label for="name">
         Nombre <span aria-hidden="true">*</span>
@@ -24,7 +22,6 @@
       </div>
     </div>
 
-    <!-- Campo Descripción -->
     <div class="form-group">
       <label for="description">Descripción</label>
       <textarea
@@ -43,16 +40,14 @@
       </div>
     </div>
 
-    <!-- Mensaje de error genérico -->
     <div class="form-error" *ngIf="errorMessage" role="alert">
       <small>{{ errorMessage }}</small>
     </div>
-    <!-- Mensaje de éxito -->
+
     <div class="form-success" *ngIf="successMessage" role="status">
       <small>{{ successMessage }}</small>
     </div>
 
-    <!-- Botón Crear -->
     <div class="button-container">
       <button
         type="submit"

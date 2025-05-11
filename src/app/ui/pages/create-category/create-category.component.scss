@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap');
 
 .create-category-page {
-  /* Fondo uniforme en toda la página antes del bottom-banner */
+
   background-color: #f9fafb;
   display: flex;
-  flex-wrap: wrap;    /* permite que el bottom-banner rompa la fila */
+  flex-wrap: wrap;    
   min-height: 100vh;
 
   .page-wrapper {
@@ -12,7 +12,6 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Fondo del contenido (podrías quitar si quieres usar solo el de .create-category-page) */
     background-color: #f9fafb;
 
     app-admin-topbar {
@@ -20,10 +19,10 @@
     }
 
     .admin-content {
-      margin-left: 220px;    /* ancho sidebar (200px) + 20px extra */
-      flex: 1;               /* empuja hacia abajo para separar el footer */
+      margin-left: 220px;    
+      flex: 1;               
       padding: 2rem 3rem;
-      padding-bottom: 4rem;  /* espacio para el bottom-banner */
+      padding-bottom: 4rem; 
       font-family: 'Manrope', sans-serif;
 
       h2 {
@@ -121,7 +120,6 @@
     }
   }
 
-  /* footer ocupa toda la fila inferior */
   > app-bottom-banner {
     flex: 0 0 100%;
   }

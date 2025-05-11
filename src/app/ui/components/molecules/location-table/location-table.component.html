@@ -1,17 +1,48 @@
-<!-- location-table.component.html -->
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Ciudad</th>
-      <th>Departamento</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let loc of locations">
-      <td>{{ loc.name }}</td>
-      <td>{{ loc.city.name || '—' }}</td>
-      <td>{{ loc.city.department.name || '—' }}</td>
-    </tr>
-  </tbody>
-</table>
+<section class="locations-list" aria-live="polite">
+  <div *ngIf="errorMessage" class="error" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="!errorMessage" class="locations-table">
+    <caption class="sr-only">Listado de ubicaciones</caption>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Departamento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loc of locations">
+        <td>{{ loc.name }}</td>
+        <td>{{ loc.cityResponse.name || '—' }}</td>
+        <td>{{ loc.cityResponse.departmentResponse.name || '—' }}</td>        
+      </tr>
+    </tbody>
+  </table>
+
+  <nav *ngIf="!errorMessage && totalPages > 1" class="pagination" aria-label="Paginación de ubicaciones">
+    <button
+      (click)="changePage(page - 1)"
+      [disabled]="page === 0"
+      aria-label="Ir a la página anterior">
+      ‹
+    </button>
+
+    <button
+      *ngFor="let p of pages"
+      (click)="changePage(p)"
+      [class.active]="p === page"
+      [attr.aria-current]="p === page ? 'page' : null"
+      [attr.aria-label]="'Página ' + (p + 1)">
+      {{ p + 1 }}
+    </button>
+
+    <button
+      (click)="changePage(page + 1)"
+      [disabled]="page + 1 >= totalPages"
+      aria-label="Ir a la página siguiente">
+      ›
+    </button>
+  </nav>
+</section>

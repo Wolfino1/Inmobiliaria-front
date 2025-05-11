@@ -7,5 +7,3 @@ import { Component } from '@angular/core';
   styleUrls: ['./top-navbar.component.scss']
 })
 export class TopNavbarComponent { }
-
-

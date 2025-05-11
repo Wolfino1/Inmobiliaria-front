@@ -1,16 +1,15 @@
-/* src/app/ui/organisms/admin-sidebar/admin-sidebar.component.scss */
 .sidebar {
   position: fixed;
-  top: 60px;      /* altura de la topbar */
-  bottom: 0;      /* llega hasta el fondo del viewport */
+  top: 60px;    
+  bottom: 0;     
   left: 0;
-  width: 200px;   /* nuevo ancho */
+  width: 200px;  
   padding: 1.5rem 1rem;
   background-color: #ffffff;
   border-right: 1px solid #e5e7eb;
   font-family: 'Manrope', sans-serif;
   overflow-y: auto;
-  z-index: 100;   /* por debajo de la bottom-bar */
+  z-index: 100;   
 
   ul {
     list-style: none;

@@ -1,4 +1,3 @@
-<!-- src/app/ui/pages/create-category/create-category.component.html -->
 <div class="create-category-page">
   <app-admin-sidebar></app-admin-sidebar>
 
@@ -11,10 +10,8 @@
     <main class="admin-content">
       <h2>Crear Categoría</h2>
 
-      <!-- Formulario emite el evento 'created' con la categoría nueva -->
       <app-category-form (created)="handleNewCategory($event)"></app-category-form>
 
-      <!-- Tabla recibe el array de categorías, el total y emite pageChange -->
       <app-categories-table
         [categories]="categories"
         [totalElements]="totalElements"

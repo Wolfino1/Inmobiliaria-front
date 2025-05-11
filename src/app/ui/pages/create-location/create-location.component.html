@@ -10,7 +10,15 @@
     <main class="admin-content">
       <h2>Crear Ubicación</h2>
 
-      <app-location-form></app-location-form>
+      <app-location-form
+        (created)="onLocationCreated($event)"
+      ></app-location-form>
+
+      <app-location-table
+        [locations]="locations"
+        [totalElements]="totalElements"
+        (pageChange)="onPageChange($event)"
+      ></app-location-table>
     </main>
   </div>
 

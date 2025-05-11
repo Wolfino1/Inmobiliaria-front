@@ -1,20 +1,20 @@
 :host {
-  display: inline-block;       /* Que respete su propio ancho */
-  position: relative;          /* Para ubicar la flecha con ::after */
+  display: inline-block;     
+  position: relative; 
 }
 
 select {
-  width: 180px;                /* Ajustá al ancho que quieras */
-  height: 40px;                /* Altura chevere */
-  padding: 0 12px;             /* Espacio interno */
-  border: 1px solid #e5e7eb;   /* Borde gris claro */
-  border-radius: 6px;          /* Bordes redonditos */
+  width: 180px;         
+  height: 40px;             
+  padding: 0 12px;        
+  border: 1px solid #e5e7eb;   
+  border-radius: 6px;      
   background-color: #fff;      
   appearance: none;            
   -webkit-appearance: none;    
   -moz-appearance: none;       
-  font-size: 14px;             /* Tamaño de letra cómodo */
-  line-height: 40px;           /* Centrar texto verticalmente */
+  font-size: 14px;           
+  line-height: 40px;         
   cursor: pointer;
   background-image: url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
   background-repeat: no-repeat;

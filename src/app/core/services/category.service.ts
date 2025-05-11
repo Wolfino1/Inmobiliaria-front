@@ -11,7 +11,6 @@ export interface PagedResult<T> {
   totalElements: number;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,15 +19,13 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
-/** GET paginado */
 getAllCategories(page = 0, size = 10, orderAsc = false)
-  : Observable<PagedResult<Category>> {   // <-- aquí usamos el genérico
+  : Observable<PagedResult<Category>> {  
   return this.http.get<PagedResult<Category>>(
     `${this.baseUrl}/get?page=${page}&size=${size}&orderAsc=${orderAsc}`
   );
 }
 
-  /** POST crea una nueva categoría */
   createCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(`${this.baseUrl}/`, category);
   }

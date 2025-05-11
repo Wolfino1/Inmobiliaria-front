@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LocationService } from 'src/app/shared/services/location.service';
+import { LocationService } from 'src/app/core/services/location.service';
 import { Department } from 'src/app/core/models/department.model';
 import { City } from 'src/app/core/models/city.model';
 
@@ -23,19 +23,18 @@ export class LocationFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       departmentId: [null, Validators.required],
       cityId: [null, Validators.required]
     });
 
-    // Cargar departamentos al iniciar
     this.locationService.getDepartments().subscribe({
       next: depts => this.departments = depts,
       error: err => console.error('Error loading departments', err)
     });
 
-    // Cuando cambia el departamento, recargar ciudades
     this.form.get('departmentId')!
       .valueChanges
       .subscribe((deptId: number) => {

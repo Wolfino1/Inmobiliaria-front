@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { CategorySelectComponent } from './category-select.component';
-import { CategoryService } from 'src/app/shared/services/category.service';
+import { CategoryService } from 'src/app/core/services/category.service';
 
 describe('CategorySelectComponent', () => {
   let component: CategorySelectComponent;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoryService } from 'src/app/shared/services/category.service'; 
+import { CategoryService } from 'src/app/core/services/category.service'; 
 @Component({
   selector: 'app-category-select',
     templateUrl: './category-select.component.html',

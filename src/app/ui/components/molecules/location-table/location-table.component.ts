@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Location } from 'src/app/core/models/location.model';
+import { LocationResponse } from 'src/app/core/models/location-response.model';
 
 export interface PageEvent {
   page: number;
@@ -13,13 +13,13 @@ export interface PageEvent {
   styleUrls: ['./location-table.component.scss']
 })
 export class LocationTableComponent {
-  @Input() locations: Location[] = [];
+  @Input() locations: LocationResponse[] = [];
   @Input() totalElements = 0;
-  @Output() pageChange = new EventEmitter<{page: number, size: number, orderAsc: boolean}>();
+  @Output() pageChange = new EventEmitter<PageEvent>();
 
   page = 0;
   size = 10;
-  orderAsc = false;
+  orderAsc = true;
   errorMessage: string | null = null;
 
   get totalPages(): number {
@@ -33,18 +33,6 @@ export class LocationTableComponent {
   changePage(newPage: number): void {
     if (newPage < 0 || newPage >= this.totalPages) return;
     this.page = newPage;
-    this.emitPage();
-  }
-
-  nextPage(): void {
-    this.changePage(this.page + 1);
-  }
-
-  prevPage(): void {
-    this.changePage(this.page - 1);
-  }
-
-  private emitPage(): void {
     this.pageChange.emit({
       page: this.page,
       size: this.size,
