@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule }        from '@angular/router';
 
@@ -8,9 +9,9 @@ import { SearchBannerComponent }   from './search-banner/search-banner.component
 import { TopNavbarComponent }      from './top-navbar/top-navbar.component';
 import { CategoryFormComponent }   from './category-form/category-form.component';
 import { CategoriesTableComponent }from './categories-table/categories-table.component';
-import { LocationFormComponent }   from './location-form/location-form.component';  
+import { LocationFormComponent } from './location-form/location-form.component';  
 import { LocationTableComponent }from './location-table/location-table.component';
-
+import { LocationSearchComponent }from './location-search/location-search.component';
 
 
 import { AtomsModule } from '../atoms/atoms.module';
@@ -23,12 +24,14 @@ import { AtomsModule } from '../atoms/atoms.module';
     CategoryFormComponent,
     CategoriesTableComponent,
     LocationFormComponent,
-    LocationTableComponent
+    LocationTableComponent,
+    LocationSearchComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AtomsModule,
+    FormsModule,
     RouterModule
   ],
   exports: [
@@ -38,7 +41,8 @@ import { AtomsModule } from '../atoms/atoms.module';
     CategoryFormComponent,
     CategoriesTableComponent,
     LocationFormComponent,
-    LocationTableComponent   
+    LocationTableComponent,
+    LocationSearchComponent 
   ]
 })
 export class MoleculesModule {}

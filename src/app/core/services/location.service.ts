@@ -14,21 +14,26 @@ export class LocationService {
 
   constructor(private http: HttpClient) {}
   
-  getAllLocations(
-    page = 0,
-    size = 10,
-    orderAsc = false
-  ): Observable<PagedResult<LocationResponse>> {
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString())
-      .set('orderAsc', orderAsc.toString());
-  
-    return this.http.get<PagedResult<LocationResponse>>(
-      `${this.baseUrl}/locations/filters`,
-      { params }
-    );
+getAllLocations(
+  page = 0,
+  size = 10,
+  orderAsc = false,
+  searchTerm?: string
+): Observable<PagedResult<LocationResponse>> {
+  let params = new HttpParams()
+    .set('page', page.toString())
+    .set('size', size.toString())
+    .set('orderAsc', orderAsc.toString());
+
+  if (searchTerm && searchTerm.trim() !== '') {
+    params = params.set('search', searchTerm);
   }
+
+  return this.http.get<PagedResult<LocationResponse>>(
+    `${this.baseUrl}/locations/filters`,
+    { params }
+  );
+}
 
   getDepartments(): Observable<Department[]> {
     return this.http.get<Department[]>(`${this.baseUrl}/department/get`);

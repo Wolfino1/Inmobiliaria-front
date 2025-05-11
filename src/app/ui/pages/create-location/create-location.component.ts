@@ -23,10 +23,18 @@ export class CreateLocationComponent implements OnInit {
   ngOnInit(): void {
     this.loadLocations();
   }
+  searchTerm = '';
+
+onSearch(term: string): void {
+  this.searchTerm = term;
+  this.page = 0;
+  this.loadLocations();
+}
+
 
   private loadLocations(): void {
     this.locationService
-      .getAllLocations(this.page, this.size, this.orderAsc)
+  .getAllLocations(this.page, this.size, this.orderAsc, this.searchTerm)
       .subscribe(res => {
         this.locations     = res.content;
         this.totalElements = res.totalElements;

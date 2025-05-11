@@ -14,6 +14,8 @@
         (created)="onLocationCreated($event)"
       ></app-location-form>
 
+      <app-location-search (search)="onSearch($event)"></app-location-search>
+
       <app-location-table
         [locations]="locations"
         [totalElements]="totalElements"

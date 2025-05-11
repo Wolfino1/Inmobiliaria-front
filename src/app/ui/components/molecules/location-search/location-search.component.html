@@ -1,0 +1,16 @@
+<div class="search-container">
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="Buscar por ubicación"
+    aria-label="Buscar por ubicación"
+  />
+
+  <button
+    type="button"
+    (click)="onSearch()"
+    aria-label="Buscar"
+  >
+    Buscar
+  </button>
+</div>
