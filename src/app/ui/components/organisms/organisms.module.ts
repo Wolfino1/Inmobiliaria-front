@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { MoleculesModule } from '../molecules/molecules.module';
-import { AdminTopbarComponent } from './admin-topbar/admin-topbar.component';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { PropertyCardComponent } from './property-card/property-card.component';
+import { LoginContainerComponent } from './login-container/login-container.component';
+import { AuthCardComponent }      from './auth-card/auth-card.component';
 
 import { LucideAngularModule } from 'lucide-angular';
 import {
@@ -18,9 +19,10 @@ import {
 
 @NgModule({
   declarations: [
-    AdminTopbarComponent,
     PropertyCardComponent,
     AdminSidebarComponent,
+    LoginContainerComponent,
+    AuthCardComponent
   ],
   imports: [
     CommonModule,
@@ -35,9 +37,10 @@ import {
     })
   ],
   exports: [
-    AdminTopbarComponent,
     PropertyCardComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    LoginContainerComponent,
+    AuthCardComponent
   ]
 })
 export class OrganismsModule {}

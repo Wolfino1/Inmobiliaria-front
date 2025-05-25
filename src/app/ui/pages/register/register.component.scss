@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
+}
+
+form app-primary-button {
+  align-self: end;
+  margin-top: 0.5rem;
+}
+
+
+h2 {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.register__error {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #e11d48;
+  text-align: center;
+}
+
+.register__success {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #059669;  
+  text-align: center;
+}
+
+.field-error {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #e11d48;
+}

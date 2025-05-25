@@ -1,0 +1,18 @@
+<div class="form-select">
+  <label *ngIf="label" [for]="id" class="form-select__label">{{ label }}</label>
+  <select
+    [id]="id"
+    [formControl]="control"
+    class="form-select__field"
+  >
+    <option value="" disabled hidden>{{ placeholder }}</option>
+    <option *ngFor="let opt of options" [value]="opt.value">
+      {{ opt.label }}
+    </option>
+  </select>
+  <div class="form-select__error" *ngIf="control.touched && control.invalid">
+    <span *ngIf="control.errors?.['required']">
+      Selecciona {{ label || placeholder }}
+    </span>
+  </div>
+</div>

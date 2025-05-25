@@ -1,0 +1,24 @@
+<form [formGroup]="form" (ngSubmit)="submitForm.emit()">
+  <app-login-input
+    [control]="emailControl"
+    label="Correo"
+    id="email"
+    type="email"
+    placeholder="tucorreo@ejemplo.com"
+  ></app-login-input>
+
+  <app-login-input
+    [control]="passwordControl"
+    label="Contraseña"
+    id="password"
+    type="password"
+    placeholder="******"
+  ></app-login-input>
+
+  <app-primary-button
+    type="submit"
+    [disabled]="form.invalid"
+  >
+    Iniciar sesión
+  </app-primary-button>
+</form>

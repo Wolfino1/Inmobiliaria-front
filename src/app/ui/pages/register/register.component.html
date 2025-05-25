@@ -1,0 +1,100 @@
+<app-top-navbar></app-top-navbar>
+
+<app-auth-card>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>Crear cuenta</h2>
+
+    <app-login-input
+      [control]="nameControl"
+      label="Nombre"
+      id="name"
+      placeholder="Nombre completo"
+    ></app-login-input>
+
+    <app-login-input
+      [control]="lastnameControl"
+      label="Apellido"
+      id="lastname"
+      placeholder="Apellido"
+    ></app-login-input>
+
+    <app-login-input
+      [control]="documentControl"
+      label="Documento"
+      id="document"
+      placeholder="Documento"
+    ></app-login-input>
+
+<app-login-input
+  [control]="phoneNumberControl"
+  label="Teléfono"
+  id="phoneNumber"
+  placeholder="Teléfono"
+  type="tel"
+  [maxLength]="13"
+></app-login-input>
+
+<app-login-input
+  [control]="dateOfBirthControl"
+  label="Fecha de nacimiento"
+  id="dateOfBirth"
+  type="date"
+  placeholder="Fecha de nacimiento"
+></app-login-input>
+
+    <app-login-input
+      [control]="emailControl"
+      label="Correo"
+      id="emailReg"
+      type="email"
+      placeholder="Correo"
+    ></app-login-input>
+
+    <app-login-input
+      [control]="passwordControl"
+      label="Contraseña"
+      id="passwordReg"
+      type="password"
+      placeholder="Contraseña"
+    ></app-login-input>
+
+    <app-login-input
+      [control]="confirmPasswordControl"
+      label="Confirmar contraseña"
+      id="confirmPassword"
+      type="password"
+      placeholder="Confirmar contraseña"
+    ></app-login-input>
+
+    <app-form-select
+      [control]="roleControl"
+      label="Tipo de cuenta"
+      id="role"
+      [options]="roleOptions"
+      placeholder="Selecciona un rol"
+    ></app-form-select>
+
+    <app-primary-button
+      type="submit"
+      [disabled]="registerForm.invalid"
+    >
+      Crear cuenta
+    </app-primary-button>
+
+    
+    <div
+  class="field-error"
+  *ngIf="confirmPasswordControl.touched && registerForm.hasError('mismatch')"
+>
+  Las contraseñas no coinciden.
+</div>
+
+    <div class="register__success" *ngIf="successMessage">
+  {{ successMessage }}
+    </div>
+
+    <div class="register__error" *ngIf="errorMessage">
+  {{ errorMessage }}
+    </div>
+  </form>
+</app-auth-card>

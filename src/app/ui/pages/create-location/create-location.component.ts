@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationService }   from 'src/app/core/services/location.service';
 import { LocationResponse }  from 'src/app/core/models/location-response.model';
+import { AuthService }       from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-create-location',
@@ -8,8 +9,9 @@ import { LocationResponse }  from 'src/app/core/models/location-response.model';
   styleUrls: ['./create-location.component.scss']
 })
 export class CreateLocationComponent implements OnInit {
-  userName       = 'Admin';
-  userAvatarUrl  = '/assets/user-avatar.jpg';
+  isAdmin = false;
+  userName      = '';
+  userAvatarUrl  = '/assets/default-avatar.jpg';
 
   locations: LocationResponse[] = [];
   totalElements = 0;
@@ -17,31 +19,20 @@ export class CreateLocationComponent implements OnInit {
   page     = 0;
   size     = 10;
   orderAsc = true;
-
-  constructor(private locationService: LocationService) {}
-
-  ngOnInit(): void {
-    this.loadLocations();
-  }
   searchTerm = '';
 
-onSearch(term: string): void {
-  this.searchTerm = term;
-  this.page = 0;
-  this.loadLocations();
-}
+  constructor(
+    private locationService: LocationService,
+    private authService: AuthService
+  ) {}
 
-
-  private loadLocations(): void {
-    this.locationService
-  .getAllLocations(this.page, this.size, this.orderAsc, this.searchTerm)
-      .subscribe(res => {
-        this.locations     = res.content;
-        this.totalElements = res.totalElements;
-      }, err => console.error('Error loading locations', err));
+  ngOnInit(): void {
+    this.isAdmin = this.authService.getUserRole() === 'ADMIN';
+    this.loadLocations();
   }
-
-  onLocationCreated(_: any): void {
+  
+  onSearch(term: string): void {
+    this.searchTerm = term;
     this.page = 0;
     this.loadLocations();
   }
@@ -52,5 +43,21 @@ onSearch(term: string): void {
     this.orderAsc = event.orderAsc;
     this.loadLocations();
   }
-}
+  
+  onLocationCreated(_: any): void {
+    this.page = 0;
+    this.loadLocations();
+  }
 
+  private loadLocations(): void {
+    this.locationService
+      .getAllLocations(this.page, this.size, this.orderAsc, this.searchTerm)
+      .subscribe({
+        next: res => {
+          this.locations     = res.content;
+          this.totalElements = res.totalElements;
+        },
+        error: err => console.error('Error loading locations', err)
+      });
+  }
+}

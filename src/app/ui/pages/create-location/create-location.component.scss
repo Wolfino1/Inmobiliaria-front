@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap');
-
 .create-location-page {
   background-color: #f9fafb;
   display: flex;
@@ -13,10 +11,8 @@
     min-height: 100vh;
     background-color: #f9fafb;
 
-    app-admin-topbar { z-index: 1; }
-
     .admin-content {
-      margin-left: 220px; 
+      margin-left: 220px;
       flex: 1;
       padding: 2rem 3rem;
       padding-bottom: 4rem;
@@ -27,6 +23,11 @@
         color: #111827;
       }
 
+      .access-denied {
+        margin-bottom: 1rem;
+        color: #dc2626;
+        font-weight: 600;
+      }
 
       app-location-form {
         width: 100%;

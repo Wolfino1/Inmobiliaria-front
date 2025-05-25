@@ -1,27 +1,31 @@
 <div class="create-location-page">
-  <app-admin-sidebar></app-admin-sidebar>
+  <app-top-navbar></app-top-navbar>
 
   <div class="page-wrapper">
-    <app-admin-topbar
-      [userName]="userName"
-      [userAvatarUrl]="userAvatarUrl">
-    </app-admin-topbar>
+    <app-admin-sidebar></app-admin-sidebar>
+    <div class="admin-main">
+      <main class="admin-content">
+        <h2>Crear Ubicación</h2>
 
-    <main class="admin-content">
-      <h2>Crear Ubicación</h2>
+        <!-- Formulario solo visible a ADMIN -->
+        <ng-container *ngIf="isAdmin; else noAccess">
+          <app-location-form (created)="onLocationCreated($event)"></app-location-form>
+        </ng-container>
+        <ng-template #noAccess>
+          <p class="access-denied">No tienes permisos para crear ubicaciones.</p>
+        </ng-template>
 
-      <app-location-form
-        (created)="onLocationCreated($event)"
-      ></app-location-form>
+        <!-- Buscador accesible para todos -->
+        <app-location-search (search)="onSearch($event)"></app-location-search>
 
-      <app-location-search (search)="onSearch($event)"></app-location-search>
-
-      <app-location-table
-        [locations]="locations"
-        [totalElements]="totalElements"
-        (pageChange)="onPageChange($event)"
-      ></app-location-table>
-    </main>
+        <!-- Tabla accesible para todos -->
+        <app-location-table
+          [locations]="locations"
+          [totalElements]="totalElements"
+          (pageChange)="onPageChange($event)">
+        </app-location-table>
+      </main>
+    </div>
   </div>
 
   <app-bottom-banner></app-bottom-banner>

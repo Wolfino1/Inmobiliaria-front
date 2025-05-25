@@ -1,0 +1,36 @@
+.form-select {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  &__label {
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #333;
+  }
+
+  &__field {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    appearance: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #E31C5E;
+    }
+    &.ng-invalid.ng-touched {
+      border-color: #f46a6a;
+    }
+  }
+
+  &__error {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: #f46a6a;
+  }
+}

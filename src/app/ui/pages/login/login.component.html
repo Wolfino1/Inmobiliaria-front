@@ -1,6 +1,8 @@
 <app-top-navbar></app-top-navbar>
 
-<div class="login-container">
-  <h1>Aquí es para iniciar sesión</h1>
-  <p>En construcción :D </p>
-</div>
+<login-container
+  [form]="loginForm"
+  [errorMessage]="errorMessage"
+  (submitLogin)="onSubmit()"
+></login-container>
+

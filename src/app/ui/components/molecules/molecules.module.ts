@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule }        from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-import { BottomBannerComponent }   from './bottom-banner/bottom-banner.component';
-import { SearchBannerComponent }   from './search-banner/search-banner.component';
-import { TopNavbarComponent }      from './top-navbar/top-navbar.component';
-import { CategoryFormComponent }   from './category-form/category-form.component';
-import { CategoriesTableComponent }from './categories-table/categories-table.component';
-import { LocationFormComponent } from './location-form/location-form.component';  
-import { LocationTableComponent }from './location-table/location-table.component';
-import { LocationSearchComponent }from './location-search/location-search.component';
-
+import { BottomBannerComponent } from './bottom-banner/bottom-banner.component';
+import { SearchBannerComponent } from './search-banner/search-banner.component';
+import { TopNavbarComponent } from './top-navbar/top-navbar.component';
+import { CategoryFormComponent } from './category-form/category-form.component';
+import { CategoriesTableComponent } from './categories-table/categories-table.component';
+import { LocationFormComponent } from './location-form/location-form.component';
+import { LocationTableComponent } from './location-table/location-table.component';
+import { LocationSearchComponent } from './location-search/location-search.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { BasicLayoutComponent } from './basic-layout/basic-layout.component';
 
 import { AtomsModule } from '../atoms/atoms.module';
 
@@ -25,7 +25,9 @@ import { AtomsModule } from '../atoms/atoms.module';
     CategoriesTableComponent,
     LocationFormComponent,
     LocationTableComponent,
-    LocationSearchComponent
+    LocationSearchComponent,
+    LoginFormComponent,
+    BasicLayoutComponent    
   ],
   imports: [
     CommonModule,
@@ -42,8 +44,9 @@ import { AtomsModule } from '../atoms/atoms.module';
     CategoriesTableComponent,
     LocationFormComponent,
     LocationTableComponent,
-    LocationSearchComponent 
+    LocationSearchComponent,
+    LoginFormComponent,
+    BasicLayoutComponent    
   ]
 })
-export class MoleculesModule {}
-
+export class MoleculesModule { }

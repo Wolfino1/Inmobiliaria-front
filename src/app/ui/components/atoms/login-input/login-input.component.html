@@ -1,0 +1,32 @@
+<div class="login-input">
+  <label *ngIf="label" [for]="id" class="login-input__label">{{ label }}</label>
+  <input
+    [id]="id"
+    [type]="type"
+    [formControl]="control"
+    [placeholder]="placeholder"
+    [attr.maxlength]="maxLength"
+    class="login-input__field"
+  />
+  <div class="login-input__error" *ngIf="control.touched && control.invalid">
+    <span *ngIf="control.errors?.['required']">
+      {{ label || placeholder }} es obligatorio
+    </span>
+    <span *ngIf="control.errors?.['email']">
+      Correo no válido
+    </span>
+    <span *ngIf="control.errors?.['minlength']">
+      Mínimo {{ control.errors?.['minlength'].requiredLength }} caracteres
+    </span>
+    <span *ngIf="control.errors?.['mismatch']">
+      Las contraseñas no coinciden
+    </span>
+    <span *ngIf="control.errors?.['pattern']">
+      Solo se permiten números.
+    </span>
+    <span *ngIf="control.errors?.['underAge']">
+      Debes ser mayor de edad.
+    </span>
+  </div>
+</div>
+
