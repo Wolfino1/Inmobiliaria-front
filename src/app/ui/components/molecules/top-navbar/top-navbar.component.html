@@ -1,0 +1,36 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <a routerLink="/">
+      <img src="/assets/logo.png" alt="Logo Hogar360" class="logo">
+    </a>
+  </div>
+
+  <div class="navbar-right">
+    <!-- Siempre disponible -->
+    <a class="sell-button" routerLink="/sell">Vende</a>
+
+    <!-- No autenticado -->
+    <ng-container *ngIf="!isLoggedIn">
+      <a class="login-button" routerLink="/login">Ingresar</a>
+    </ng-container>
+
+    <!-- Autenticado -->
+    <ng-container *ngIf="isLoggedIn">
+      <div class="user-menu">
+        <span class="greeting" (click)="toggleMenu()">
+          Hola, {{ userName }}
+        </span>
+        <img
+          src="/assets/default-avatar.png"
+          alt="Avatar"
+          class="avatar"
+          (click)="toggleMenu()"
+        >
+
+        <ul *ngIf="menuOpen" class="dropdown">
+          <li (click)="onLogout()">Cerrar sesión</li>
+        </ul>
+      </div>
+    </ng-container>
+  </div>
+</nav>
