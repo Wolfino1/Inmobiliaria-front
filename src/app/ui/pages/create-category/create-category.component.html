@@ -1,22 +1,27 @@
+<!-- create-category.component.html -->
 <div class="create-category-page">
   <app-top-navbar></app-top-navbar>
 
   <div class="page-wrapper">
-      
     <app-admin-sidebar></app-admin-sidebar>
     <div class="admin-main">
-    <main class="admin-content">
-      <h2>Crear Categoría</h2>
+      <main class="admin-content">
+        <h2>Crear Categoría</h2>
 
-      <app-category-form (created)="handleNewCategory($event)"></app-category-form>
+        <!-- Formulario de creación -->
+        <app-category-form (created)="handleNewCategory($event)"></app-category-form>
 
-      <app-categories-table
-        [categories]="categories"
-        [totalElements]="totalElements"
-        (pageChange)="loadCategories($event.page, $event.size, $event.orderAsc)">
-      </app-categories-table>
-    </main>
-
+        <!-- Tabla de categorías con paginación controlada por el padre -->
+        <app-categories-table
+          [categories]="categories"
+          [totalElements]="totalElements"
+          [page]="page"
+          [size]="size"
+          [orderAsc]="orderAsc"
+          (pageChange)="onPageChange($event)">
+        </app-categories-table>
+      </main>
+    </div>
   </div>
 
   <app-bottom-banner></app-bottom-banner>

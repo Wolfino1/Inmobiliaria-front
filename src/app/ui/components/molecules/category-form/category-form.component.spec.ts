@@ -1,22 +1,26 @@
+// category-form.component.spec.ts
+
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { of, throwError } from 'rxjs';
 import { CategoryFormComponent } from './category-form.component';
-import { CategoryService } from 'src/app/core/services/category.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CategoryService, Category } from 'src/app/core/services/category.service';
+import { of, throwError } from 'rxjs';
+import { NO_INTERNET_ERROR, NO_SERVER, UNKNOWN_ERROR } from 'src/app/shared/errors/constant-error';
+import { CATEGORY_CREATED } from 'src/app/shared/errors/constant-success';
 
 describe('CategoryFormComponent', () => {
   let component: CategoryFormComponent;
   let fixture: ComponentFixture<CategoryFormComponent>;
-  let mockCategoryService: any;
+  let mockCategoryService: jest.Mocked<CategoryService>;
 
   beforeEach(async () => {
     mockCategoryService = {
       createCategory: jest.fn()
-    };
+    } as any;
 
     await TestBed.configureTestingModule({
-      declarations: [CategoryFormComponent],
       imports: [ReactiveFormsModule],
+      declarations: [CategoryFormComponent],
       providers: [
         { provide: CategoryService, useValue: mockCategoryService }
       ]
@@ -27,79 +31,95 @@ describe('CategoryFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('debería crearse correctamente', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería inicializar el formulario con valores vacíos', () => {
-    expect(component.form.value).toEqual({ name: '', description: '' });
+  it('should initialize form with empty controls', () => {
+    const form = component.form;
+    expect(form).toBeTruthy();
+    expect(form.get('name')?.value).toBe('');
+    expect(form.get('description')?.value).toBe('');
+    expect(form.valid).toBe(false);
   });
 
-  it('no debería enviar si el formulario es inválido', () => {
-    const spy = jest.spyOn(mockCategoryService, 'createCategory');
-    component.form.setValue({ name: '', description: '' }); // name es requerido
+  it('should mark all fields touched if submitting invalid form', () => {
+    const nameControl = component.form.get('name')!;
+    const descriptionControl = component.form.get('description')!;
+    // Both untouched initially
+    expect(nameControl.touched).toBe(false);
+    expect(descriptionControl.touched).toBe(false);
+
     component.onSubmit();
-    expect(spy).not.toHaveBeenCalled();
+
+    expect(nameControl.touched).toBe(true);
+    expect(descriptionControl.touched).toBe(true);
+    // Service should not be called
+    expect(mockCategoryService.createCategory).not.toHaveBeenCalled();
   });
 
-  it('debería enviar y emitir evento si el formulario es válido', () => {
-    const mockCategory = { id: 1, name: 'Test', description: 'Desc' };
-    const spy = jest.spyOn(mockCategoryService, 'createCategory').mockReturnValue(of(mockCategory));
+  it('should call service and emit created + set successMessage on valid submit', fakeAsync(() => {
+    const dummyCategory: Category = { id: 1, name: 'Test', description: 'Desc' };
+    mockCategoryService.createCategory.mockReturnValue(of(dummyCategory));
+
     const emitSpy = jest.spyOn(component.created, 'emit');
-
     component.form.setValue({ name: 'Test', description: 'Desc' });
-    component.onSubmit();
 
-    expect(spy).toHaveBeenCalledWith({ name: 'Test', description: 'Desc' });
-    expect(component.successMessage).toBe('Categoría creada con éxito');
+    component.onSubmit();
+    expect(mockCategoryService.createCategory).toHaveBeenCalledWith({ name: 'Test', description: 'Desc' });
+
+    // next block runs synchronously because of of(...)
     expect(component.errorMessage).toBe('');
-    expect(emitSpy).toHaveBeenCalledWith(mockCategory);
+    expect(component.successMessage).toBe(CATEGORY_CREATED);
     expect(component.form.value).toEqual({ name: null, description: null });
-  });
+    expect(emitSpy).toHaveBeenCalledWith(dummyCategory);
 
-  it('debería limpiar successMessage después de 3 segundos', fakeAsync(() => {
-    const mockCategory = { id: 1, name: 'Test', description: '' };
-    jest.spyOn(mockCategoryService, 'createCategory').mockReturnValue(of(mockCategory));
-
-    component.form.setValue({ name: 'Test', description: '' });
-    component.onSubmit();
-
-    expect(component.successMessage).toBe('Categoría creada con éxito');
+    // After 3000ms, successMessage should clear
     tick(3000);
     expect(component.successMessage).toBe('');
   }));
 
-  it('debería mostrar mensaje de error si no hay conexión', () => {
-    jest.spyOn(mockCategoryService, 'createCategory').mockReturnValue(
-      throwError({ status: 0 })
-    );
+  it('should set errorMessage to NO_INTERNET_ERROR when service returns status 0', () => {
+    const httpError: any = { status: 0 };
+    mockCategoryService.createCategory.mockReturnValue(throwError(() => httpError));
 
-    component.form.setValue({ name: 'Test', description: '' });
+    component.form.setValue({ name: 'A', description: '' });
     component.onSubmit();
 
-    expect(component.errorMessage).toContain('No se pudo conectar al servidor');
+    expect(component.errorMessage).toBe(NO_INTERNET_ERROR);
     expect(component.successMessage).toBe('');
   });
 
-  it('debería mostrar mensaje de error si hay error 500', () => {
-    jest.spyOn(mockCategoryService, 'createCategory').mockReturnValue(
-      throwError({ status: 500 })
-    );
+  it('should set errorMessage to NO_SERVER when service returns status >= 500', () => {
+    const httpError: any = { status: 500 };
+    mockCategoryService.createCategory.mockReturnValue(throwError(() => httpError));
 
-    component.form.setValue({ name: 'Test', description: '' });
+    component.form.setValue({ name: 'A', description: '' });
     component.onSubmit();
 
-    expect(component.errorMessage).toContain('Error en el servidor');
+    expect(component.errorMessage).toBe(NO_SERVER);
+    expect(component.successMessage).toBe('');
   });
 
-  it('debería mostrar mensaje personalizado si el error lo tiene', () => {
-    jest.spyOn(mockCategoryService, 'createCategory').mockReturnValue(
-      throwError({ status: 400, error: { message: 'Nombre inválido' } })
-    );
+  it('should set errorMessage to error.error.message or UNKNOWN_ERROR for other statuses', () => {
+    const httpErrorWithMessage: any = { status: 400, error: { message: 'Bad request' } };
+    mockCategoryService.createCategory.mockReturnValue(throwError(() => httpErrorWithMessage));
 
-    component.form.setValue({ name: 'Test', description: '' });
+    component.form.setValue({ name: 'A', description: '' });
     component.onSubmit();
 
-    expect(component.errorMessage).toBe('Nombre inválido');
+    expect(component.errorMessage).toBe('Bad request');
+    expect(component.successMessage).toBe('');
+
+    // Now simulate no error.message
+    const httpErrorNoMsg: any = { status: 422, error: {} };
+    mockCategoryService.createCategory.mockReturnValue(throwError(() => httpErrorNoMsg));
+
+    component.form.setValue({ name: 'A', description: '' });
+    component.onSubmit();
+
+    expect(component.errorMessage).toBe(UNKNOWN_ERROR);
+    expect(component.successMessage).toBe('');
   });
 });
+

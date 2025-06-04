@@ -1,0 +1,24 @@
+<!-- src/app/ui/components/organisms/seller-house-table/seller-house-table.component.html -->
+<table class="seller-houses-table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Precio</th>
+      <th>Ubicación</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let h of houses">
+      <td>{{ h.name }}</td>
+      <td>{{ h.category }}</td>
+      <td>{{ h.price | currency:'COP':'symbol':'1.0-0' }}</td>
+      <td>{{ h.location }}</td>
+      <td>
+        <!-- Ahora sí usamos h.id -->
+        <button (click)="onManage(h.id)">Gestionar horarios</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

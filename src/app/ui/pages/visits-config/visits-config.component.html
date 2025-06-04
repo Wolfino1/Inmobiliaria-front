@@ -1,0 +1,28 @@
+<!-- src/app/ui/pages/visits-config/visits-config.component.html -->
+<div class="visits-config-page">
+  <app-top-navbar></app-top-navbar>
+
+  <div class="page-wrapper">
+    <app-admin-sidebar></app-admin-sidebar>
+
+    <div class="admin-main">
+      <main class="admin-content">
+        <!-- Encabezado con recuadro azul y formulario -->
+        <div class="visits-config-header">
+          <div class="house-image-box">
+            <h3>{{ houseName }}</h3>
+          </div>
+
+          <div class="visits-form-container">
+            <app-visits-form [houseId]="houseId"></app-visits-form>
+          </div>
+        </div>
+
+        <!-- 🎯 Aquí insertamos la tabla de visitas -->
+        <app-visits-table [houseId]="houseId"></app-visits-table>
+      </main>
+    </div>
+  </div>
+
+  <app-bottom-banner></app-bottom-banner>
+</div>

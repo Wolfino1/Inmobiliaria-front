@@ -1,0 +1,10 @@
+export const NO_INTERNET_ERROR = "No se pudo conectar al servidor. Revisa tu conexión.";
+export const NO_SERVER = "El servidor no está disponible. Intenta de nuevo más tarde.";
+export const UNKNOWN_ERROR = "Se produjo un error desconocido";
+export const WRONG_USER_OR_PASSWORD = "Correo o contraseña incorrectos";
+export const ERROR_LOADING_CATEGORIES = "Error loading categories";
+export const ERROR_LOADING_LOCATIONS = "Error loading locations";
+export const ADDRESS_ALREADY_EXISTS = "La dirección ya existe";
+export const LISTING_DATE_IS_IN_MORE_THAN_ONE_MONTH = "La fecha de publicación debe ser inferior a un mes desde hoy";
+export const GENERIC_ERROR_CREATING_HOUSE = "Ocurrió un error al crear la casa. Intenta de nuevo.";
+export const GENERIC_ERROR_LOADING_HOUSE = "Error cargando casas.";

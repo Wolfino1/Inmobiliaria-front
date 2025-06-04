@@ -20,7 +20,6 @@ export class RoleGuard implements CanActivate {
     if (role && expected.includes(role)) {
       return true;
     }
-    // Redirige al home o a “sin permisos”
     return this.router.parseUrl('/');
   }
 }

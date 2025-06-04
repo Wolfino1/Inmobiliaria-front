@@ -1,0 +1,21 @@
+<div class="form-group">
+  <label>{{ label }}</label>
+  <input
+    type="date"
+    [formControl]="control"
+    [attr.min]="minDate"
+    [attr.max]="maxDate"
+    class="form-control"
+  />
+  <small class="error-text" *ngIf="control.touched && control.invalid">
+    <span *ngIf="control.hasError('required')">
+      Este campo es obligatorio.
+    </span>
+    <span *ngIf="control.hasError('matDatepickerMax') || control.hasError('max')">
+      La fecha no puede ser mayor a {{ maxDate }}.
+    </span>
+    <span *ngIf="control.hasError('min')">
+      La fecha no puede ser menor a {{ minDate }}.
+    </span>
+  </small>
+</div>

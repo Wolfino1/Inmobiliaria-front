@@ -1,0 +1,28 @@
+<div class="create-house-container">
+  <h2>CREAR NUEVA CASA</h2>
+  <div *ngIf="successMessage" class="message-success">
+    {{ successMessage }}
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-house-basic-info [form]="form"></app-house-basic-info>
+
+    <app-house-details [form]="form"></app-house-details>
+
+    <app-house-meta
+      [form]="form"
+      [categories]="categories"
+      [locations]="locations">
+    </app-house-meta>
+    
+    <div *ngIf="errorMessage" class="error-general">
+      {{ errorMessage }}
+    </div>
+
+    <button
+      type="submit"
+      class="btn-create"
+      [disabled]="form.invalid">
+      Crear casa
+    </button>
+  </form>
+</div>

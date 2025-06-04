@@ -1,0 +1,14 @@
+.layout {
+  display: flex;
+  min-height: calc(100vh - 120px);
+
+  app-side-nav {
+    width: 240px;
+  }
+
+  .content {
+    flex: 1;
+    padding: 2rem 2rem 1rem 13rem; 
+    background: #f9f9f9;
+  }
+}

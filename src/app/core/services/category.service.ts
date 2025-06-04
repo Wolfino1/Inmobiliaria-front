@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Category {
+  id: number;
   name: string;
   description?: string;
 }
@@ -26,8 +27,18 @@ getAllCategories(page = 0, size = 10, orderAsc = false)
   );
 }
 
-  createCategory(category: Category): Observable<Category> {
-    return this.http.post<Category>(`${this.baseUrl}/`, category);
+createCategory(category: Category): Observable<Category> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token || ''}`
+    });
+
+    return this.http.post<Category>(
+      `${this.baseUrl}/`,
+      category,
+      { headers }
+    );
   }
 }
 

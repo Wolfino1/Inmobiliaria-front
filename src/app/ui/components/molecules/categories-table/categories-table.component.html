@@ -1,9 +1,12 @@
+<!-- categories-table.component.html -->
 <section class="categories-list" aria-live="polite">
-  <div *ngIf="errorMessage" class="error" role="alert">
-    {{ errorMessage }}
+  <!-- Si no hay categorías, mostramos un mensaje -->
+  <div *ngIf="!categories.length" class="no-data">
+    No hay categorías para mostrar.
   </div>
 
-  <table *ngIf="!errorMessage" class="categories-table">
+  <!-- Tabla de categorías -->
+  <table *ngIf="categories.length" class="categories-table">
     <caption class="sr-only">Listado de categorías</caption>
     <thead>
       <tr>
@@ -19,9 +22,10 @@
     </tbody>
   </table>
 
-  <nav *ngIf="!errorMessage && totalPages > 1" class="pagination" aria-label="Paginación de categorías">
+  <!-- Paginación -->
+  <nav *ngIf="totalPages > 1" class="pagination" aria-label="Paginación de categorías">
     <button
-      (click)="changePage(page - 1)"
+      (click)="prevPage()"
       [disabled]="page === 0"
       aria-label="Ir a la página anterior">
       ‹
@@ -37,7 +41,7 @@
     </button>
 
     <button
-      (click)="changePage(page + 1)"
+      (click)="nextPage()"
       [disabled]="page + 1 >= totalPages"
       aria-label="Ir a la página siguiente">
       ›

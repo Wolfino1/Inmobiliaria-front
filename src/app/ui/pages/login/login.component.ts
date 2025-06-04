@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router }   from '@angular/router';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { NO_INTERNET_ERROR, NO_SERVER, UNKNOWN_ERROR, WRONG_USER_OR_PASSWORD } from 'src/app/shared/errors/constant-error';
 
 @Component({
   selector: 'app-login',
@@ -26,27 +28,46 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) return;
 
-    this.errorMessage = null;  
+    this.errorMessage = null;
     const { email, password } = this.loginForm.value;
 
     this.authService.login({ email, password })
       .subscribe({
-    next: (res) => {
-  // 1) guardo el token
-    localStorage.setItem('token', res.token);
+        next: (res) => {
 
-  // 2) tomo el name que vino del backend y lo emito
-    this.authService.setUserName(res.name);
+          localStorage.setItem('token', res.token);
+          this.authService.setUserName(res.name);
 
-  // 3) redirijo
-    this.router.navigate(['/home']);
-      },
+          const role = this.authService.getUserRole();
+          if (role === 'ADMIN') {
+            this.router.navigate(['/categories']);
+          }
+          else if (role === 'SELLER') {
+            this.router.navigate(['/propiedades/mis-casas']);
+          }
+          else {
+            this.router.navigate(['/home']);
+          }        
+        },
+        error: (err: HttpErrorResponse) => {
 
-        error: () => {
-          this.errorMessage = 'Correo o contraseña incorrectos';
+          if (!navigator.onLine) {
+            this.errorMessage = NO_INTERNET_ERROR;
+          }
+          else if (err.status === 0) {
+            this.errorMessage = NO_SERVER;
+          }
+          else if (err.status === 401) {
+            this.errorMessage = WRONG_USER_OR_PASSWORD;
+          }
+          else {
+            this.errorMessage = UNKNOWN_ERROR;
+          }
+
         }
       });
   }
 }
+
+

@@ -1,5 +1,9 @@
+// categories-table.component.spec.ts
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CategoriesTableComponent, PageEvent } from './categories-table.component';
+import { By } from '@angular/platform-browser';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CategoriesTableComponent', () => {
   let component: CategoriesTableComponent;
@@ -8,82 +12,148 @@ describe('CategoriesTableComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CategoriesTableComponent],
+      imports: [CommonModule],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CategoriesTableComponent);
     component = fixture.componentInstance;
+    fixture.autoDetectChanges(true);
   });
 
-  it('debería crearse correctamente', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería calcular el total de páginas correctamente', () => {
-    component.totalElements = 25;
-    component.size = 10;
-    expect(component.totalPages).toBe(3);
-  });
+  describe('default inputs and getters', () => {
+    it('should default totalPages to 1 when totalElements is 0', () => {
+      component.totalElements = 0;
+      component.size = 10;
+      expect(component.totalPages).toBe(1);
+    });
 
-  it('debería generar un array de páginas correctamente', () => {
-    component.totalElements = 30;
-    component.size = 10;
-    expect(component.pages).toEqual([0, 1, 2]);
-  });
+    it('should compute totalPages correctly when totalElements > 0', () => {
+      component.totalElements = 25;
+      component.size = 10;
+      expect(component.totalPages).toBe(3);
+    });
 
-  it('debería emitir evento al cambiar de página válida', () => {
-    const emitSpy = jest.spyOn(component.pageChange, 'emit');
-    component.totalElements = 50;
-    component.size = 10;
+    it('should build pages array correctly', () => {
+      component.totalElements = 25;
+      component.size = 10;
+      expect(component.pages).toEqual([0, 1, 2]);
+    });
 
-    component.changePage(2);
-
-    expect(component.page).toBe(2);
-    expect(emitSpy).toHaveBeenCalledWith({
-      page: 2,
-      size: 10,
-      orderAsc: false,
+    it('should return [0] in pages when totalElements < size but > 0', () => {
+      component.totalElements = 5;
+      component.size = 10;
+      expect(component.pages).toEqual([0]);
     });
   });
 
-  it('no debería cambiar de página si newPage es inválido (negativo)', () => {
-    const emitSpy = jest.spyOn(component.pageChange, 'emit');
-    component.totalElements = 20;
-    component.size = 10;
+  describe('changePage()', () => {
+    it('should emit a PageEvent when newPage is valid', () => {
+      component.size = 5;
+      component.totalElements = 20;
+      component.page = 0;
+      component.orderAsc = true;
 
-    component.changePage(-1);
+      let emitted: PageEvent | null = null;
+      component.pageChange.subscribe((pe: PageEvent) => (emitted = pe));
 
-    expect(component.page).toBe(0);
-    expect(emitSpy).not.toHaveBeenCalled();
+      component.changePage(2);
+      expect(emitted).toEqual({ page: 2, size: 5, orderAsc: true });
+    });
+
+    it('should not emit when newPage is negative', () => {
+      component.size = 5;
+      component.totalElements = 20;
+      component.page = 1;
+      component.orderAsc = false;
+
+      let calledCount = 0;
+      component.pageChange.subscribe(() => calledCount++);
+
+      component.changePage(-1);
+      expect(calledCount).toBe(0);
+    });
+
+    it('should not emit when newPage >= totalPages', () => {
+      component.size = 5;
+      component.totalElements = 20;
+      component.page = 0;
+      component.orderAsc = false;
+
+      let called = false;
+      component.pageChange.subscribe(() => (called = true));
+
+      component.changePage(4);
+      expect(called).toBe(false);
+    });
   });
 
-  it('no debería cambiar de página si newPage excede totalPages', () => {
-    const emitSpy = jest.spyOn(component.pageChange, 'emit');
-    component.totalElements = 20;
-    component.size = 10;
+  describe('nextPage() and prevPage()', () => {
+    beforeEach(() => {
+      component.size = 5;
+      component.totalElements = 20;
+      component.page = 1;
+      component.orderAsc = false;
+    });
 
-    component.changePage(5); // totalPages sería 2
+    it('nextPage() should emit event with page + 1 when valid', () => {
+      let emitted: PageEvent | null = null;
+      component.pageChange.subscribe((pe) => (emitted = pe));
+      component.nextPage();
+      expect(emitted).toEqual({ page: 2, size: 5, orderAsc: false });
+    });
 
-    expect(component.page).toBe(0);
-    expect(emitSpy).not.toHaveBeenCalled();
+    it('nextPage() should not emit if already at last page', () => {
+      component.page = 3;
+      let called = false;
+      component.pageChange.subscribe(() => (called = true));
+      component.nextPage();
+      expect(called).toBe(false);
+    });
+
+    it('prevPage() should emit event with page - 1 when valid', () => {
+      let emitted: PageEvent | null = null;
+      component.pageChange.subscribe((pe) => (emitted = pe));
+      component.prevPage();
+      expect(emitted).toEqual({ page: 0, size: 5, orderAsc: false });
+    });
+
+    it('prevPage() should not emit if already at first page', () => {
+      component.page = 0;
+      let called = false;
+      component.pageChange.subscribe(() => (called = true));
+      component.prevPage();
+      expect(called).toBe(false);
+    });
   });
 
-  it('debería avanzar con nextPage()', () => {
-    const spy = jest.spyOn(component, 'changePage');
-    component.page = 1;
-    component.totalElements = 30;
-    component.size = 10;
+  describe('template rendering', () => {
+    
 
-    component.nextPage();
-    expect(spy).toHaveBeenCalledWith(2);
-  });
+    it('should display "No hay categorías para mostrar." when categories input is empty', () => {
+      component.categories = [];
+      component.totalElements = 0;
+      fixture.detectChanges();
 
-  it('debería retroceder con prevPage()', () => {
-    const spy = jest.spyOn(component, 'changePage');
-    component.page = 2;
-    component.totalElements = 30;
-    component.size = 10;
+      const noDataDiv = fixture.debugElement.query(By.css('.no-data'));
+      expect(noDataDiv).toBeTruthy();
+      expect(noDataDiv.nativeElement.textContent).toContain('No hay categorías para mostrar.');
+    });
 
-    component.prevPage();
-    expect(spy).toHaveBeenCalledWith(1);
+    it('should not render pagination if totalPages <= 1', () => {
+      component.categories = [{ id: 1, name: 'X', description: 'Y' }] as any;
+      component.totalElements = 5;
+      component.page = 0;
+      component.size = 10;
+      fixture.detectChanges();
+
+      const pagination = fixture.debugElement.query(By.css('.pagination'));
+      expect(pagination).toBeNull();
+    });
+
   });
 });

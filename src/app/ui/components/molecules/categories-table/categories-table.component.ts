@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Category } from 'src/app/core/services/category.service';
 
 export interface PageEvent {
@@ -10,22 +10,23 @@ export interface PageEvent {
 @Component({
   selector: 'app-categories-table',
   templateUrl: './categories-table.component.html',
-  styleUrls: ['./categories-table.component.scss']
+  styleUrls: ['./categories-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesTableComponent {
   @Input() categories: Category[] = [];
   @Input() totalElements = 0;
 
+  // El padre debe controlar estos valores
+  @Input() page = 0;
+  @Input() size = 10;
+  @Input() orderAsc = false;
+
   @Output() pageChange = new EventEmitter<PageEvent>();
 
-  page = 0;
-  size = 10;
-  orderAsc = false;
-
-  errorMessage: string | null = null;
-
   get totalPages(): number {
-    return Math.ceil(this.totalElements / this.size);
+    // Evitamos cero páginas; al menos 1
+    return Math.max(1, Math.ceil(this.totalElements / this.size));
   }
 
   get pages(): number[] {
@@ -34,8 +35,11 @@ export class CategoriesTableComponent {
 
   changePage(newPage: number): void {
     if (newPage < 0 || newPage >= this.totalPages) return;
-    this.page = newPage;
-    this.emitPage();
+    this.pageChange.emit({
+      page: newPage,
+      size: this.size,
+      orderAsc: this.orderAsc
+    });
   }
 
   nextPage(): void {
@@ -45,15 +49,8 @@ export class CategoriesTableComponent {
   prevPage(): void {
     this.changePage(this.page - 1);
   }
-
-  private emitPage(): void {
-    this.pageChange.emit({
-      page: this.page,
-      size: this.size,
-      orderAsc: this.orderAsc
-    });
-  }
 }
+
 
 
 

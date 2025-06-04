@@ -1,117 +1,104 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap');
-
 .create-category-page {
-
   background-color: #f9fafb;
   display: flex;
-  flex-wrap: wrap;    
+  flex-wrap: wrap;
   min-height: 100vh;
+  font-family: 'Manrope', sans-serif;
 
   .page-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f9fafb;
 
     .admin-content {
-      margin-left: 220px;    
-      flex: 1;               
-      padding: 2rem 3rem;
-      padding-bottom: 4rem; 
-      font-family: 'Manrope', sans-serif;
+      margin-left: 220px; 
+      flex: 1;
+      padding: 2rem 3rem 4rem;
+      background-color: #f9fafb;
 
       h2 {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
         color: #111827;
       }
 
-      .category-form {
-        width: 100%;
-        max-width: none;
+      .form-section {
         background: #fff;
         padding: 2rem;
         border-radius: 8px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        max-width: 480px; 
+        margin-bottom: 3rem;
+      }
 
-        .form-group {
-          margin-bottom: 1.25rem;
+      .form-section .form-group {
+        margin-bottom: 1.5rem;
 
-          label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #374151;
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+          color: #374151;
+        }
+
+        input,
+        textarea {
+          width: 100%;
+          padding: 0.75rem;
+          border: 1px solid #d1d5db;
+          border-radius: 6px;
+          font-size: 1rem;
+          outline: none;
+          transition: border-color 0.2s, box-shadow 0.2s;
+
+          &:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
           }
 
-          input,
-          textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 1rem;
-            outline: none;
-
-            &:focus {
-              border-color: #2563eb;
-            }
-          }
-
-          .error {
-            margin-top: 0.25rem;
-
-            small {
-              color: #dc2626;
-              font-size: 0.875rem;
-            }
+          &.ng-invalid.ng-touched {
+            border-color: #dc2626; 
           }
         }
 
-        button {
-          display: block;
-          margin-left: auto;
-          padding: 0.75rem 1.5rem;
-          font-size: 1rem;
-          font-weight: 600;
-          background-color: #2563eb;
-          color: #fff;
-          border: none;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: background-color 0.2s;
+        .error {
+          margin-top: 0.5rem;
 
-          &:disabled {
-            background-color: #9ca3af;
-            cursor: not-allowed;
+          small {
+            color: #dc2626;
+            font-size: 0.875rem;
           }
+        }
+      }
 
-          &:hover:enabled {
-            background-color: #1d4ed8;
-          }
+      .form-section button {
+        display: block;
+        margin-left: auto;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        background-color: #2563eb;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s;
+
+        &:disabled {
+          background-color: #9ca3af;
+          cursor: not-allowed;
+        }
+
+        &:hover:enabled {
+          background-color: #1d4ed8;
+          box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
         }
       }
 
       .categories-list {
         max-width: 800px;
         width: 100%;
-        margin: 2rem auto 0;
-
-        table {
-          width: 100%;
-          border-collapse: collapse;
-
-          th,
-          td {
-            padding: 0.75rem;
-            border-bottom: 1px solid #e5e7eb;
-          }
-
-          th {
-            text-align: left;
-            background-color: #f3f4f6;
-          }
-        }
+        margin: 0 auto;
       }
     }
   }
@@ -120,4 +107,3 @@
     flex: 0 0 100%;
   }
 }
-

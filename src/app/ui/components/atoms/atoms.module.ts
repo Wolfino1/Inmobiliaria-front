@@ -8,7 +8,9 @@ import { LocationInputComponent } from './location-input/location-input.componen
 import { LoginInputComponent } from './login-input/login-input.component';
 import { FormSelectComponent }    from './form-select/form-select.component';
 import { PrimaryButtonComponent } from './primary-button/primary-button.component';
-
+import { InputFieldComponent } from './input-field/input-field.component';
+import { SelectFieldComponent } from './select-field/select-field.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 
 
 @NgModule({
@@ -18,7 +20,10 @@ import { PrimaryButtonComponent } from './primary-button/primary-button.componen
     LocationInputComponent,
     LoginInputComponent,
     FormSelectComponent,
-    PrimaryButtonComponent
+    PrimaryButtonComponent,
+    InputFieldComponent,
+    SelectFieldComponent,
+    DatePickerComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +35,10 @@ import { PrimaryButtonComponent } from './primary-button/primary-button.componen
     LocationInputComponent,
     LoginInputComponent,
     FormSelectComponent,
-    PrimaryButtonComponent
+    PrimaryButtonComponent,
+    InputFieldComponent,
+    SelectFieldComponent,
+    DatePickerComponent
   ]
 })
 export class AtomsModule {}

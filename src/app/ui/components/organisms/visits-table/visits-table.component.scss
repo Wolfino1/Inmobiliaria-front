@@ -1,0 +1,62 @@
+/* src/app/ui/components/organisms/visits-table/visits-table.component.scss */
+
+.visits-list {
+  margin-top: 2rem;
+  font-family: 'Manrope', sans-serif;
+
+  .table-container {
+    margin-left: 7.4rem; 
+    margin-right: 2rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .visits-table {
+    width: 100%;
+    max-width: 1000px;
+    min-width: 700px;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    th, td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: #f3f4f6;
+      text-align: left;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    td {
+      font-size: 0.95rem;
+      color: #374151;
+    }
+  }
+
+  /* Mensaje “no hay visitas” */
+  .no-visits {
+    margin-left: 7.4rem;
+    color: #374151;
+    font-style: italic;
+  }
+
+  /* Loading */
+  .loading {
+    margin-left: 7.4rem;
+    font-size: 1rem;
+    color: #374151;
+  }
+
+  /* Error */
+  .error {
+    margin-left: 7.4rem;
+    color: #dc2626;
+    font-size: 0.95rem;
+  }
+}

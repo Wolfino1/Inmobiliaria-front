@@ -1,0 +1,103 @@
+<form [formGroup]="visitsForm" class="visits-form">
+  <!-- Fecha de la visita -->
+  <div class="form-group">
+    <label for="date">Fecha de visita</label>
+    <input
+      type="date"
+      id="date"
+      formControlName="date"
+      [min]="minDate"
+      [max]="maxDate"
+    />
+    <div *ngIf="visitsForm.get('date')?.touched && visitsForm.get('date')?.invalid" class="error">
+      <small *ngIf="visitsForm.get('date')?.errors?.['required']">
+        La fecha es obligatoria.
+      </small>
+      <small *ngIf="visitsForm.get('date')?.errors?.['min'] || visitsForm.get('date')?.errors?.['max']">
+        Fecha fuera de rango.
+      </small>
+    </div>
+  </div>
+
+  <!-- Hora de inicio -->
+  <div class="form-group">
+    <label for="startTime">Hora inicio</label>
+    <input
+      type="time"
+      id="startTime"
+      formControlName="startTime"
+    />
+    <div *ngIf="visitsForm.get('startTime')?.touched && visitsForm.get('startTime')?.invalid" class="error">
+      <small *ngIf="visitsForm.get('startTime')?.errors?.['required']">
+        La hora de inicio es obligatoria.
+      </small>
+    </div>
+  </div>
+
+  <!-- Hora fin -->
+  <div class="form-group">
+    <label for="endTime">Hora fin</label>
+    <input
+      type="time"
+      id="endTime"
+      formControlName="endTime"
+    />
+    <div *ngIf="visitsForm.get('endTime')?.touched && visitsForm.get('endTime')?.invalid" class="error">
+      <small *ngIf="visitsForm.get('endTime')?.errors?.['required']">
+        La hora de fin es obligatoria.
+      </small>
+      <small *ngIf="visitsForm.get('endTime')?.errors?.['rangeInvalid']">
+        La hora de fin debe ser mayor que la de inicio.
+      </small>
+    </div>
+  </div>
+
+  <!-- Botón Agregar horario -->
+  <button
+    type="button"
+    (click)="addPendingVisit()"
+    [disabled]="visitsForm.invalid"
+  >
+    Agregar horario
+  </button>
+
+  <!-- Lista temporal de horarios -->
+  <div class="pending-list" *ngIf="pendingVisits.length > 0">
+    <h4>Horarios agregados:</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha y hora inicio</th>
+          <th>Fecha y hora fin</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of pendingVisits; let i = index">
+          <td>{{ v.startDateTime }}</td>
+          <td>{{ v.endDateTime }}</td>
+          <td>
+            <button type="button" (click)="removePending(i)">❌</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Botón Guardar todos los horarios -->
+    <button
+      type="button"
+      class="save-all-btn"
+      (click)="saveAllVisits()"
+      [disabled]="pendingVisits.length === 0"
+    >
+      Guardar todos los horarios
+    </button>
+  </div>
+    <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</form>
+

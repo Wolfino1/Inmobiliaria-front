@@ -1,0 +1,125 @@
+.visits-form {
+  display: flex;
+  flex-direction: column;
+
+  .form-group {
+    margin-bottom: 1rem;
+
+ .success-message {
+    margin-top: 1rem;
+    color: #059669; 
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .error-message {
+    margin-top: 1rem;
+    color: #dc2626; 
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 1rem;
+      outline: none;
+
+      &:focus {
+        border-color: #2563eb;
+      }
+    }
+
+    .error {
+      margin-top: 0.25rem;
+
+      small {
+        color: #dc2626;
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  button {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s;
+
+    &:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    &:hover:enabled {
+      background-color: #1d4ed8;
+    }
+  }
+
+  .pending-list {
+    margin-top: 2rem;
+
+    h4 {
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+
+      th, td {
+        padding: 0.5rem;
+        border-bottom: 1px solid #e5e7eb;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f3f4f6;
+      }
+
+      td button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #dc2626;
+        font-size: 1.1rem;
+      }
+    }
+
+    .save-all-btn {
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+      background-color: #10b981;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:disabled {
+        background-color: #9ca3af;
+        cursor: not-allowed;
+      }
+
+      &:hover:enabled {
+        background-color: #059669;
+      }
+    }
+  }
+}

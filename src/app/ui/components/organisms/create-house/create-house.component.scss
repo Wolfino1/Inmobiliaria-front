@@ -1,0 +1,47 @@
+.create-house-container {
+  max-width: 1000px;      
+  margin: 2rem auto;      
+  padding: 2rem 1rem 1rem;
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #2563eb;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .error-general {
+    color: #e31c5e;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .btn-create {
+    align-self: flex-end;
+    padding: 0.75rem 1.5rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+    .message-success {
+    background-color: #d1fae5; 
+    color: #065f46;           
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    text-align: center;
+  }
+}

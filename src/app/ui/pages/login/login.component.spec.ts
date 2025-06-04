@@ -1,21 +1,25 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService, LoginResponse } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { NO_INTERNET_ERROR, NO_SERVER, UNKNOWN_ERROR, WRONG_USER_OR_PASSWORD } from 'src/app/shared/errors/constant-error';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let mockAuthService: Partial<AuthService>;
-  let mockRouter: Partial<Router>;
+  let mockAuthService: jest.Mocked<AuthService>;
+  let mockRouter: jest.Mocked<Router>;
 
   beforeEach(async () => {
     mockAuthService = {
       login: jest.fn(),
-      setUserName: jest.fn()
-    };
+      setUserName: jest.fn(),
+      getUserRole: jest.fn()
+    } as any;
+
     mockRouter = {
       navigate: jest.fn()
     } as any;
@@ -34,42 +38,94 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the login form with email and password controls', () => {
-    expect(component.loginForm).toBeTruthy();
-    expect(component.loginForm.contains('email')).toBe(true);
-    expect(component.loginForm.contains('password')).toBe(true);
+  it('should create and initialize form', () => {
+    expect(component).toBeTruthy();
+    const form = component.loginForm;
+    expect(form).toBeTruthy();
+    expect(form.get('email')?.value).toBe('');
+    expect(form.get('password')?.value).toBe('');
+    expect(form.valid).toBe(false);
   });
 
-  it('should not call login when the form is invalid', () => {
-    component.loginForm.setValue({ email: '', password: '' });
+  it('should navigate to /categories when role is ADMIN', () => {
+    const loginResp: LoginResponse = { token: 'abc', name: 'Admin User' };
+    mockAuthService.login.mockReturnValue(of(loginResp));
+    mockAuthService.getUserRole.mockReturnValue('ADMIN');
+
+    component.loginForm.setValue({ email: 'a@b.com', password: '123' });
     component.onSubmit();
-    expect((mockAuthService.login as jest.Mock)).not.toHaveBeenCalled();
+
+    expect(mockAuthService.login).toHaveBeenCalledWith({ email: 'a@b.com', password: '123' });
+    expect(localStorage.getItem('token')).toBe('abc');
+    expect(mockAuthService.setUserName).toHaveBeenCalledWith('Admin User');
+    expect(mockAuthService.getUserRole).toHaveBeenCalled();
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/categories']);
+    expect(component.errorMessage).toBeNull();
   });
 
-  it('should call login and store token, set user name, and navigate on success', fakeAsync(() => {
-    const mockResponse = { token: 'abc123', name: 'TestUser' };
-    (mockAuthService.login as jest.Mock).mockReturnValue(of(mockResponse));
+  it('should navigate to /propiedades/mis-casas when role is SELLER', () => {
+    const loginResp: LoginResponse = { token: 'xyz', name: 'Seller User' };
+    mockAuthService.login.mockReturnValue(of(loginResp));
+    mockAuthService.getUserRole.mockReturnValue('SELLER');
 
-    component.loginForm.setValue({ email: 'test@example.com', password: 'pass' });
-
-    const spySetItem = jest.spyOn(Storage.prototype, 'setItem');
-
+    component.loginForm.setValue({ email: 's@b.com', password: 'pwd' });
     component.onSubmit();
-    tick();
 
-    expect(mockAuthService.login).toHaveBeenCalledWith({ email: 'test@example.com', password: 'pass' });
-    expect(spySetItem).toHaveBeenCalledWith('token', mockResponse.token);
-    expect((mockAuthService.setUserName as jest.Mock)).toHaveBeenCalledWith(mockResponse.name);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/propiedades/mis-casas']);
+  });
+
+  it('should navigate to /home when role is neither ADMIN nor SELLER', () => {
+    const loginResp: LoginResponse = { token: '123', name: 'Other User' };
+    mockAuthService.login.mockReturnValue(of(loginResp));
+    mockAuthService.getUserRole.mockReturnValue('BUYER');
+
+    component.loginForm.setValue({ email: 'o@b.com', password: 'pwd' });
+    component.onSubmit();
+
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
-  }));
+  });
 
-  it('should set errorMessage when login fails', fakeAsync(() => {
-    (mockAuthService.login as jest.Mock).mockReturnValue(throwError(() => new Error('fail')));
-    component.loginForm.setValue({ email: 'fail@example.com', password: 'wrong' });
+  it('should set NO_INTERNET_ERROR when navigator.onLine is false', () => {
+    jest.spyOn(navigator, 'onLine', 'get').mockReturnValue(false);
+    mockAuthService.login.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 500 })));
 
+    component.loginForm.setValue({ email: 'x@b.com', password: 'pwd' });
     component.onSubmit();
-    tick();
 
-    expect(component.errorMessage).toBe('Correo o contraseña incorrectos');
-  }));
+    expect(component.errorMessage).toBe(NO_INTERNET_ERROR);
+    jest.spyOn(navigator, 'onLine', 'get').mockRestore();
+  });
+
+  it('should set NO_SERVER when error status is 0', () => {
+    jest.spyOn(navigator, 'onLine', 'get').mockReturnValue(true);
+    const httpErr = new HttpErrorResponse({ status: 0 });
+    mockAuthService.login.mockReturnValue(throwError(() => httpErr));
+
+    component.loginForm.setValue({ email: 'x@b.com', password: 'pwd' });
+    component.onSubmit();
+
+    expect(component.errorMessage).toBe(NO_SERVER);
+  });
+
+  it('should set WRONG_USER_OR_PASSWORD when error status is 401', () => {
+    jest.spyOn(navigator, 'onLine', 'get').mockReturnValue(true);
+    const httpErr = new HttpErrorResponse({ status: 401 });
+    mockAuthService.login.mockReturnValue(throwError(() => httpErr));
+
+    component.loginForm.setValue({ email: 'x@b.com', password: 'pwd' });
+    component.onSubmit();
+
+    expect(component.errorMessage).toBe(WRONG_USER_OR_PASSWORD);
+  });
+
+  it('should set UNKNOWN_ERROR for other error statuses', () => {
+    jest.spyOn(navigator, 'onLine', 'get').mockReturnValue(true);
+    const httpErr = new HttpErrorResponse({ status: 400 });
+    mockAuthService.login.mockReturnValue(throwError(() => httpErr));
+
+    component.loginForm.setValue({ email: 'x@b.com', password: 'pwd' });
+    component.onSubmit();
+
+    expect(component.errorMessage).toBe(UNKNOWN_ERROR);
+  });
 });

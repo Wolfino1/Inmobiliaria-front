@@ -1,0 +1,82 @@
+<!-- src/app/ui/pages/schedule-visits/schedule-visits.component.html -->
+<app-top-navbar></app-top-navbar>
+
+<div class="layout">
+  <app-admin-sidebar></app-admin-sidebar>
+
+  <main class="content">
+    <h2>Horarios Disponibles</h2>
+
+    <form [formGroup]="filterForm" (ngSubmit)="onSearch()" class="filter-form">
+      <div class="form-row">
+        <label for="startFrom">Inicio desde:</label>
+        <input type="datetime-local" id="startFrom" formControlName="startFrom" />
+      </div>
+
+      <div class="form-row">
+        <label for="startTo">Inicio hasta:</label>
+        <input type="datetime-local" id="startTo" formControlName="startTo" />
+      </div>
+
+      <div class="form-row">
+        <label for="endFrom">Fin desde:</label>
+        <input type="datetime-local" id="endFrom" formControlName="endFrom" />
+      </div>
+
+      <div class="form-row">
+        <label for="endTo">Fin hasta:</label>
+        <input type="datetime-local" id="endTo" formControlName="endTo" />
+      </div>
+
+      <div class="form-row">
+        <label for="location">Ubicación:</label>
+        <select id="location" formControlName="location">
+          <option value="">Todas</option>
+          <option *ngFor="let loc of locations" [value]="loc.id">
+            {{ loc.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Aquí cierra la última .form-row y empieza .form-actions -->
+      <div class="form-actions">
+        <button type="submit" class="btn-search">Buscar</button>
+      </div>
+    </form>
+
+    <div *ngIf="errorTable" class="error">
+      {{ errorTable }}
+    </div>
+
+    <div *ngIf="loadingTable && !errorTable" class="loading">
+      Cargando horarios…
+    </div>
+
+    <!-- Agrega un contenedor para la tabla y su separación inferior -->
+    <div class="visits-table-container" *ngIf="!loadingTable && !errorTable">
+      <app-schedule-table
+        [visits]="visitsEnriched"
+        [isBuyer]="isBuyer"
+        [loadingSchedule]="loadingSchedule"
+        (schedule)="onSchedule($event)">
+      </app-schedule-table>
+    </div>
+
+    <nav *ngIf="!loadingTable && totalPages > 1" class="pagination" aria-label="Paginación de visitas">
+      <button (click)="prevPage()" [disabled]="currentPage === 0" aria-label="Anterior">‹</button>
+      <button
+        *ngFor="let p of [].constructor(totalPages); let idx = index"
+        (click)="changeToPage(idx)"
+        [class.active]="idx === currentPage"
+        [attr.aria-current]="idx === currentPage ? 'page' : null"
+        [attr.aria-label]="'Página ' + (idx + 1)">
+        {{ idx + 1 }}
+      </button>
+      <button (click)="nextPage()" [disabled]="currentPage + 1 >= totalPages" aria-label="Siguiente">›</button>
+    </nav>
+  </main>
+</div>
+
+<app-bottom-banner></app-bottom-banner>
+
+

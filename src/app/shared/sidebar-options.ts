@@ -7,8 +7,8 @@ export interface SidebarOption {
 export const SIDEBAR_OPTIONS: Record<string, SidebarOption[]> = {
     
   SELLER: [
-    { label: 'Publicar casa', route: '/create-house', icon: 'Home' },
-    { label: 'Mis casas',      route: '/my-houses',    icon: 'Home'},
+    { label: 'Publicar casa', route: '/houses/create', icon: 'Home' },
+    { label: 'Mis casas',      route: '/propiedades/mis-casas',    icon: 'Home'},
   ],
 
   BUYER: [

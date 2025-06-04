@@ -1,0 +1,22 @@
+<div class="meta-grid">
+
+  <app-select-field
+    [control]="idCategoryControl"
+    [options]="categories"
+    label="Categoría">
+  </app-select-field>
+
+  <app-select-field
+    [control]="idLocationControl"
+    [options]="locations"
+    label="Ubicación">
+  </app-select-field>
+
+  <app-date-picker
+    [control]="publishActivationDateControl"
+    [minDate]="todayIso"
+    [maxDate]="maxIso"
+    label="Fecha activación">
+  </app-date-picker>
+
+</div>

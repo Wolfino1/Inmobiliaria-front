@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService, Category } from 'src/app/core/services/category.service';
+import { NO_INTERNET_ERROR, NO_SERVER, UNKNOWN_ERROR } from 'src/app/shared/errors/constant-error';
+import { CATEGORY_CREATED } from 'src/app/shared/errors/constant-success';
 
 @Component({
   selector: 'app-category-form',
@@ -33,18 +35,18 @@ export class CategoryFormComponent implements OnInit {
     this.categoryService.createCategory(this.form.value).subscribe({
       next: category => {
         this.errorMessage = '';
-        this.successMessage = 'Categoría creada con éxito';
+        this.successMessage = CATEGORY_CREATED;
         this.form.reset();
         this.created.emit(category);
         setTimeout(() => this.successMessage = '', 3000);
       },
       error: err => {
         if (err.status === 0) {
-          this.errorMessage = 'No se pudo conectar al servidor. Revisa tu conexión.';
+          this.errorMessage = NO_INTERNET_ERROR;
         } else if (err.status >= 500) {
-          this.errorMessage = 'Error en el servidor. Intenta de nuevo más tarde.';
+          this.errorMessage = NO_SERVER;
         } else {
-          this.errorMessage = err.error?.message || 'Ocurrió un error al crear la categoría.';
+          this.errorMessage = err.error?.message || UNKNOWN_ERROR;
         }
         this.successMessage = '';
       }

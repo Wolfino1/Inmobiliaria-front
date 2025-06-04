@@ -1,0 +1,23 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .form-control {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+  }
+
+  .error-text {
+    color: #e31c5e;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+  }
+}

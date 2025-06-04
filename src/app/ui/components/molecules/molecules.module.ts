@@ -13,6 +13,9 @@ import { LocationTableComponent } from './location-table/location-table.componen
 import { LocationSearchComponent } from './location-search/location-search.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { BasicLayoutComponent } from './basic-layout/basic-layout.component';
+import { HouseBasicInfoComponent } from './house-basic-info/house-basic-info.component';
+import { HouseDetailsComponent } from './house-details/house-details.component';
+import { HouseMetaComponent } from './house-meta/house-meta.component';
 
 import { AtomsModule } from '../atoms/atoms.module';
 
@@ -27,7 +30,10 @@ import { AtomsModule } from '../atoms/atoms.module';
     LocationTableComponent,
     LocationSearchComponent,
     LoginFormComponent,
-    BasicLayoutComponent    
+    BasicLayoutComponent,
+    HouseBasicInfoComponent,
+    HouseDetailsComponent,
+    HouseMetaComponent   
   ],
   imports: [
     CommonModule,
@@ -46,7 +52,10 @@ import { AtomsModule } from '../atoms/atoms.module';
     LocationTableComponent,
     LocationSearchComponent,
     LoginFormComponent,
-    BasicLayoutComponent    
+    BasicLayoutComponent,
+    HouseBasicInfoComponent,
+    HouseDetailsComponent,
+    HouseMetaComponent    
   ]
 })
 export class MoleculesModule { }

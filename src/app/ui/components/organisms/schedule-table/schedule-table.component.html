@@ -1,0 +1,39 @@
+<section class="schedule-table">
+  <table class="visits-table" *ngIf="visits.length > 0; else noVisitsBlock">
+    <caption class="sr-only">Horarios disponibles</caption>
+    <thead>
+      <tr>
+        <th>Casa</th>
+        <th>Ubicación</th>
+        <th>Fecha visita</th>
+        <th>Hora inicio</th>
+        <th>Hora fin</th>
+        <th *ngIf="isBuyer">Agendar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of visits">
+        <td>{{ v.houseName }}</td>
+        <td>{{ v.locationName }}</td>
+        <td>{{ v.startDateTime | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ v.startDateTime | date: 'HH:mm' }}</td>
+        <td>{{ v.endDateTime   | date: 'HH:mm' }}</td>
+        <td *ngIf="isBuyer">
+          <button
+            class="btn-agendar"
+            (click)="onScheduleClick(v.id)"
+            [disabled]="loadingSchedule"
+          >
+            Agendar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noVisitsBlock>
+    <div class="no-visits">
+      No hay horarios disponibles que coincidan con los filtros.
+    </div>
+  </ng-template>
+</section>

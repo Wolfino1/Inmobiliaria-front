@@ -1,0 +1,70 @@
+<section class="houses-list" aria-live="polite">
+  <div *ngIf="errorMessage" class="error" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!errorMessage" class="table-container">
+    <table class="houses-table">
+      <caption class="sr-only">Listado de casas disponibles</caption>
+<thead>
+  <tr>
+    <th (click)="onSortChange('location.name')">
+      Ubicación
+      <span *ngIf="sortBy === 'location.name'">
+        {{ orderAsc ? '▲' : '▼' }}
+      </span>
+    </th>
+    <th (click)="onSortChange('category')">
+      Categoría
+      <span *ngIf="sortBy === 'category'">
+        {{ orderAsc ? '▲' : '▼' }}
+      </span>
+    </th>
+    <th (click)="onSortChange('numberOfRooms')">
+      Cuartos
+      <span *ngIf="sortBy === 'numberOfRooms'">
+        {{ orderAsc ? '▲' : '▼' }}
+      </span>
+    </th>
+    <th (click)="onSortChange('numberOfBathrooms')">
+      Baños
+      <span *ngIf="sortBy === 'numberOfBathrooms'">
+        {{ orderAsc ? '▲' : '▼' }}
+      </span>
+    </th>
+    <th (click)="onSortChange('price')">
+      Precio
+      <span *ngIf="sortBy === 'price'">
+        {{ orderAsc ? '▲' : '▼' }}
+      </span>
+    </th>
+  </tr>
+</thead>
+
+      <tbody>
+        <tr *ngFor="let h of houses">
+          <td>{{ h.location.name }}</td>
+          <td>{{ h.category }}</td>
+          <td>{{ h.numberOfRooms }}</td>
+          <td>{{ h.numberOfBathrooms }}</td>
+          <td>{{ h.priceMin | currency:'COP' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav *ngIf="!errorMessage && totalPages > 1" class="pagination" aria-label="Paginación de casas">
+    <button (click)="changePage(page - 1)" [disabled]="page === 0" aria-label="Anterior">‹</button>
+
+    <button
+      *ngFor="let p of pages"
+      (click)="changePage(p)"
+      [class.active]="p === page"
+      [attr.aria-current]="p === page ? 'page' : null"
+      [attr.aria-label]="'Página ' + (p + 1)">
+      {{ p + 1 }}
+    </button>
+
+    <button (click)="changePage(page + 1)" [disabled]="page + 1 >= totalPages" aria-label="Siguiente">›</button>
+  </nav>
+</section>

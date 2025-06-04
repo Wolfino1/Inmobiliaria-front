@@ -1,0 +1,35 @@
+<app-top-navbar></app-top-navbar>
+
+<div class="layout">
+  <app-admin-sidebar></app-admin-sidebar>
+
+  <main class="content">
+    <h1>Mis Casas</h1>
+
+    <div class="published-indicator">
+      <span class="badge">Sólo casas publicadas</span>
+    </div>
+    
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <app-seller-house-table
+      [houses]="houses"
+      (manage)="onManage($event)">
+    </app-seller-house-table>
+
+    <nav *ngIf="pages.length > 1" class="pagination" aria-label="Paginación de casas">
+      <button (click)="changePage(page - 1)" [disabled]="page === 0" aria-label="Anterior">‹</button>
+      <button
+        *ngFor="let p of pages"
+        (click)="changePage(p)"
+        [class.active]="p === page"
+        [attr.aria-current]="p === page ? 'page' : null"
+        [attr.aria-label]="'Página ' + (p + 1)">
+        {{ p + 1 }}
+      </button>
+      <button (click)="changePage(page + 1)" [disabled]="page + 1 >= totalPages" aria-label="Siguiente">›</button>
+    </nav>
+  </main>
+</div>
+
+<app-bottom-banner></app-bottom-banner>

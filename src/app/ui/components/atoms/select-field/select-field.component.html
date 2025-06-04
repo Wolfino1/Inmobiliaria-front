@@ -1,0 +1,14 @@
+<div class="form-group">
+  <label>{{ label }}</label>
+  <select [formControl]="control" class="form-control">
+    <option value="" disabled selected>— Selecciona —</option>
+    <option *ngFor="let opt of options" [value]="opt.id">
+      {{ opt.name }}
+    </option>
+  </select>
+  <small class="error-text" *ngIf="control.touched && control.invalid">
+    <span *ngIf="control.hasError('required')">
+      Debes seleccionar una opción.
+    </span>
+  </small>
+</div>
