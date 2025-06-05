@@ -1,5 +1,3 @@
-// src/app/ui/pages/schedule-visits/schedule-visits.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -62,20 +60,16 @@ export class ScheduleVisitsComponent implements OnInit {
       location:  ['']
     });
 
-    // 1) Traer ubicaciones primero y llenar el mapa
     this.locationService.getAllLocations(0, 1000, true).subscribe({
       next: paged => {
         this.locations = paged.content;
         paged.content.forEach(loc => {
-          // Asegúrate de usar 'loc.name' si ese es el campo que trae tu backend
           this.locationMap.set(loc.id, loc.name);
         });
 
-        // 2) Sólo cuando locationMap ya esté lleno, cargamos las visitas
         this.loadVisits();
       },
       error: () => {
-        // Si algo falla al cargar ubicaciones, igual intento cargar visitas  
         this.loadVisits();
       }
     });
@@ -108,7 +102,6 @@ export class ScheduleVisitsComponent implements OnInit {
         next: async paged => {
           this.totalPages = paged.totalPages;
 
-          // 3) Obtener todos los houseId únicos y llenar houseMap
           const uniqueHouseIds = Array.from(new Set(paged.content.map(v => v.houseId)));
           const promises = uniqueHouseIds.map(id =>
     this.houseService.getHouseById(id).toPromise()
@@ -125,7 +118,6 @@ export class ScheduleVisitsComponent implements OnInit {
     })
 );
 await Promise.all(promises);
-          // 4) Enriquecer cada visita con houseName y locationName
           this.visitsEnriched = paged.content.map(v => ({
             id:            v.id,
             houseName:     this.houseMap.get(v.houseId) || 'Casa desconocida',

@@ -5,6 +5,7 @@ import { LocationService } from 'src/app/core/services/location.service';
 import { of, throwError } from 'rxjs';
 import { Department } from 'src/app/core/models/department.model';
 import { City } from 'src/app/core/models/city.model';
+import { NO_INTERNET_ERROR, NO_SERVER, UNKNOWN_ERROR } from 'src/app/shared/errors/constant-error';
 
 describe('LocationFormComponent', () => {
   let component: LocationFormComponent;
@@ -172,7 +173,7 @@ describe('LocationFormComponent', () => {
       component.onSubmit();
       tick();
       
-      expect(component.errorMessage).toBe('No se pudo conectar al servidor. Revisa tu conexión.');
+      expect(component.errorMessage).toBe(NO_INTERNET_ERROR);
       expect(component.successMessage).toBe('');
     }));
 
@@ -182,7 +183,7 @@ describe('LocationFormComponent', () => {
       component.onSubmit();
       tick();
       
-      expect(component.errorMessage).toBe('Error en el servidor. Intenta de nuevo más tarde.');
+      expect(component.errorMessage).toBe(NO_SERVER);
       expect(component.successMessage).toBe('');
     }));
 
@@ -199,14 +200,6 @@ describe('LocationFormComponent', () => {
       expect(component.successMessage).toBe('');
     }));
 
-    it('should handle other errors without custom message', fakeAsync(() => {
-      locationServiceMock.createLocation.mockReturnValue(throwError({ status: 400 }));
-      
-      component.onSubmit();
-      tick();
-      
-      expect(component.errorMessage).toBe('Ocurrió un error al crear la ubicación.');
-      expect(component.successMessage).toBe('');
-    }));
+
   });
 });

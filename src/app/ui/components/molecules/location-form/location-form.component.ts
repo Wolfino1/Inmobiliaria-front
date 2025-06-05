@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocationService } from 'src/app/core/services/location.service';
 import { Department } from 'src/app/core/models/department.model';
 import { City } from 'src/app/core/models/city.model';
+import { NO_INTERNET_ERROR, NO_SERVER, UNKNOWN_ERROR } from 'src/app/shared/errors/constant-error';
 
 @Component({
   selector: 'app-location-form',
@@ -69,11 +70,11 @@ export class LocationFormComponent implements OnInit {
       },
       error: err => {
         if (err.status === 0) {
-          this.errorMessage = 'No se pudo conectar al servidor. Revisa tu conexión.';
+          this.errorMessage = NO_INTERNET_ERROR;
         } else if (err.status >= 500) {
-          this.errorMessage = 'Error en el servidor. Intenta de nuevo más tarde.';
+          this.errorMessage = NO_SERVER;
         } else {
-          this.errorMessage = err.error?.message || 'Ocurrió un error al crear la ubicación.';
+          this.errorMessage = err.error?.message || UNKNOWN_ERROR;
         }
         this.successMessage = '';
       }

@@ -1,5 +1,3 @@
-// category-form.component.spec.ts
-
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { CategoryFormComponent } from './category-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -46,7 +44,6 @@ describe('CategoryFormComponent', () => {
   it('should mark all fields touched if submitting invalid form', () => {
     const nameControl = component.form.get('name')!;
     const descriptionControl = component.form.get('description')!;
-    // Both untouched initially
     expect(nameControl.touched).toBe(false);
     expect(descriptionControl.touched).toBe(false);
 
@@ -54,7 +51,6 @@ describe('CategoryFormComponent', () => {
 
     expect(nameControl.touched).toBe(true);
     expect(descriptionControl.touched).toBe(true);
-    // Service should not be called
     expect(mockCategoryService.createCategory).not.toHaveBeenCalled();
   });
 
@@ -68,13 +64,11 @@ describe('CategoryFormComponent', () => {
     component.onSubmit();
     expect(mockCategoryService.createCategory).toHaveBeenCalledWith({ name: 'Test', description: 'Desc' });
 
-    // next block runs synchronously because of of(...)
     expect(component.errorMessage).toBe('');
     expect(component.successMessage).toBe(CATEGORY_CREATED);
     expect(component.form.value).toEqual({ name: null, description: null });
     expect(emitSpy).toHaveBeenCalledWith(dummyCategory);
 
-    // After 3000ms, successMessage should clear
     tick(3000);
     expect(component.successMessage).toBe('');
   }));
@@ -111,7 +105,6 @@ describe('CategoryFormComponent', () => {
     expect(component.errorMessage).toBe('Bad request');
     expect(component.successMessage).toBe('');
 
-    // Now simulate no error.message
     const httpErrorNoMsg: any = { status: 422, error: {} };
     mockCategoryService.createCategory.mockReturnValue(throwError(() => httpErrorNoMsg));
 

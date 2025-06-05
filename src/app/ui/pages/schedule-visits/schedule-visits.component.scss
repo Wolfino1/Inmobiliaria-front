@@ -1,8 +1,7 @@
-/* src/app/ui/pages/schedule-visits/schedule-visits.component.scss */
 
 .layout {
   display: flex;
-  min-height: calc(100vh - 120px); /* Altura total menos barras de top y bottom */
+  min-height: calc(100vh - 120px); 
 
   app-admin-sidebar {
     width: 240px;
@@ -10,7 +9,7 @@
 
   .content {
     flex: 1;
-    padding: 4rem 2rem 1rem 9rem; /* Espacio para sidebar */
+    padding: 4rem 2rem 1rem 9rem; 
     background: #f9f9f9;
     font-family: 'Manrope', sans-serif;
     position: relative;
@@ -27,7 +26,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 2rem; /* Más espacio entre formulario y tabla */
+      margin-bottom: 2rem;
 
       .form-row {
         display: flex;
@@ -52,10 +51,10 @@
       }
 
       .form-actions {
-        flex: 1; /* Ocupa el espacio restante */
+        flex: 1; 
         display: flex;
-        justify-content: flex-end; /* Botón a la derecha */
-        align-items: flex-end;     /* Alinea con inputs */
+        justify-content: flex-end; 
+        align-items: flex-end; 
         min-width: 200px;
       }
 
@@ -82,7 +81,7 @@
     }
 
     .visits-table-container {
-      margin-bottom: 8rem; /* Espacio antes del bottom banner */
+      margin-bottom: 8rem; 
     }
 
     .pagination {

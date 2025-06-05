@@ -14,32 +14,24 @@
     background-color: #f9fafb;
 
     .admin-content {
-      margin-left: 220px;   // Espacio para la sidebar
+      margin-left: 220px;   
       flex: 1;
       padding: 2rem 3rem;
       padding-bottom: 4rem;
       font-family: 'Manrope', sans-serif;
 
-      /* ——————————————
-         BLOQUE DEL HEADER (caja + formulario)
-         Agregamos margin-top para separarlo del navbar
-      —————————————— */
       .visits-config-header {
         display: flex;
         gap: 2rem;
         align-items: flex-start;
 
-        /* ↓ Este margin-top baja todo el header unos pixeles */
         margin-top: 4rem;  
 
-        /* ——————————————
-           RECUADRO DE LA CASA
-        —————————————— */
         .house-image-box {
 
           flex: 1;             
-          min-width: 200px;    // ancho mínimo
-          height: 390px;       // altura más grande => más “cuadrado”
+          min-width: 200px; 
+          height: 390px;
           background-color: #1E4DB7;
           
           display: flex;
@@ -61,16 +53,12 @@
           }
         }
 
-        /* ——————————————
-           CONTENEDOR DEL FORMULARIO
-           También le bajamos unos pixeles y subimos la altura
-        —————————————— */
         .visits-form-container {
           flex: 1;              
-          max-width: 360px;     // menos ancho que antes, para compensar
+          max-width: 360px;   
           
           background: #fff;
-          padding-top: 2rem;    // más espacio arriba
+          padding-top: 2rem; 
           padding-left: 1.5rem;
           padding-right: 1.5rem;
           padding-bottom: 1.5rem;
@@ -78,7 +66,7 @@
           border-radius: 8px;
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
           
-          min-height: 350px;    // obligamos una altura mínima mayor
+          min-height: 350px;
         }
       }
     }

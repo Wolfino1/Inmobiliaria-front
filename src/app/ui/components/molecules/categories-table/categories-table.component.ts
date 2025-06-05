@@ -17,7 +17,6 @@ export class CategoriesTableComponent {
   @Input() categories: Category[] = [];
   @Input() totalElements = 0;
 
-  // El padre debe controlar estos valores
   @Input() page = 0;
   @Input() size = 10;
   @Input() orderAsc = false;
@@ -25,7 +24,6 @@ export class CategoriesTableComponent {
   @Output() pageChange = new EventEmitter<PageEvent>();
 
   get totalPages(): number {
-    // Evitamos cero páginas; al menos 1
     return Math.max(1, Math.ceil(this.totalElements / this.size));
   }
 

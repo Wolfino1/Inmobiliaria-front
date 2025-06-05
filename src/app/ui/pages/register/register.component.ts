@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ValidatorFn, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
 import { AuthService, RegisterRequest } from 'src/app/core/services/auth.service';
-// npm run test:coverage
+import { NO_INTERNET_ERROR, NO_SERVER, UNKNOWN_ERROR } from 'src/app/shared/errors/constant-error';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -126,11 +126,11 @@ export class RegisterComponent implements OnInit {
       error: err => {
         console.error(err);
         if (err.status === 0) {
-          this.errorMessage = 'Error de conexión. Intenta de nuevo más tarde.';
+          this.errorMessage = NO_INTERNET_ERROR;
         } else if (err.status >= 500) {
-          this.errorMessage = 'Error en el servidor. Por favor, inténtalo más tarde.';
+          this.errorMessage = NO_SERVER;
         } else {
-          this.errorMessage = err.error?.message || 'Ha ocurrido un error inesperado.';
+          this.errorMessage = err.error?.message || UNKNOWN_ERROR;
         }
       }
     });

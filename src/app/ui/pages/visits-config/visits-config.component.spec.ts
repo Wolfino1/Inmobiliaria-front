@@ -1,5 +1,3 @@
-// src/app/ui/pages/visits-config/visits-config.component.spec.ts
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -49,7 +47,7 @@ describe('VisitsConfigComponent', () => {
 
     (houseServiceMock.getSellerHouses as jest.Mock).mockReturnValueOnce(of(pagedResult));
 
-    fixture.detectChanges(); // dispara ngOnInit
+    fixture.detectChanges();
 
     expect(houseService.getSellerHouses).toHaveBeenCalledWith({
       page: 0,

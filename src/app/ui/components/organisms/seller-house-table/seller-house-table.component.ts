@@ -14,10 +14,8 @@ export interface SellerHouse {
   styleUrls: ['./seller-house-table.component.scss']
 })
 export class SellerHouseTableComponent {
-  /** Datos que llegan desde la página padre */
   @Input() houses: SellerHouse[] = [];
 
-  /** Evento que dispara la acción de “Gestionar horarios” */
   @Output() manage = new EventEmitter<number>();
 
   onManage(id: number): void {

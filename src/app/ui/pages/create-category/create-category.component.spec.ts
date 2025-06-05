@@ -19,7 +19,6 @@ const mockCategories: Category[] = [
   };
 
   beforeEach(async () => {
-    // Creamos un mock del servicio
     categoryServiceMock = {
       getAllCategories: jest.fn().mockReturnValue(of(mockPaged))
     } as unknown as jest.Mocked<CategoryService>;
@@ -53,7 +52,7 @@ const mockCategories: Category[] = [
 
   describe('ngOnInit', () => {
     it('should call loadCategories with defaults', fakeAsync(() => {
-      fixture.detectChanges(); // dispara ngOnInit()
+      fixture.detectChanges(); 
       tick();
 
       expect(categoryServiceMock.getAllCategories).toHaveBeenCalledWith(0, 10, false);

@@ -74,9 +74,9 @@ export class VisitsFormComponent implements OnInit {
   addPendingVisit(): void {
     if (this.visitsForm.invalid) return;
 
-    const date  = this.visitsForm.value.date;       // '2025-06-01'
-    const start = this.visitsForm.value.startTime; // '09:00'
-    const end   = this.visitsForm.value.endTime;   // '10:00'
+    const date  = this.visitsForm.value.date;
+    const start = this.visitsForm.value.startTime;
+    const end   = this.visitsForm.value.endTime;
 
     const startDateTime = `${date}T${start}:00`;
     const endDateTime   = `${date}T${end}:00`;

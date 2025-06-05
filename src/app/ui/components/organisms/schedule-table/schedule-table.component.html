@@ -22,10 +22,14 @@
           <button
             class="btn-agendar"
             (click)="onScheduleClick(v.id)"
-            [disabled]="loadingSchedule"
+            [disabled]="isLoading(v.id)"
           >
-            Agendar
+            {{ isLoading(v.id) ? 'Agendando…' : 'Agendar' }}
           </button>
+          <!-- Mensaje de error específico para esta fila -->
+          <div class="error-msg" *ngIf="getError(v.id)">
+            {{ getError(v.id) }}
+          </div>
         </td>
       </tr>
     </tbody>

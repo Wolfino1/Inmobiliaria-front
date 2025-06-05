@@ -1,16 +1,12 @@
-<!-- src/app/ui/components/organisms/visits-table/visits-table.component.html -->
 <section class="visits-list" aria-live="polite">
-  <!-- Mostrar mensaje de error si existiera -->
   <div *ngIf="errorMessage" class="error" role="alert">
     {{ errorMessage }}
   </div>
 
-  <!-- Mientras carga, mostramos texto o spinner -->
   <div *ngIf="loading && !errorMessage" class="loading">
     Cargando visitas…
   </div>
 
-  <!-- Cuando ya cargó y no hay error -->
   <div *ngIf="!loading && !errorMessage" class="table-container">
     <table class="visits-table" *ngIf="visits.length > 0">
       <caption class="sr-only">Horarios de visita de la casa</caption>
@@ -30,7 +26,6 @@
       </tbody>
     </table>
 
-    <!-- Si no hay visitas agendadas -->
     <div *ngIf="visits.length === 0" class="no-visits">
       Aún no hay visitas agendadas para esta casa.
     </div>

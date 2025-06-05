@@ -1,16 +1,12 @@
-// src/app/core/services/visits.service.ts
-
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { VisitsResponse, SaveVisitRequest } from 'src/app/core/models/visits.model';
 
 export interface VisitResponse {
   id: number;
-  startDateTime: string; // ISO string
-  endDateTime: string;   // ISO string
-  houseId: number;
-  // ...otros campos si los tuvieras
+  startDateTime: string;
+  endDateTime: string
 }
 
 export interface VisitFilteredResponse {
@@ -42,17 +38,10 @@ export class VisitsService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * HU-6/HU-7: Guarda un nuevo horario de visita (no es parte directamente de HU-10/11,
-   * pero se deja aquí por compatibilidad con saveVisit).
-   */
   saveVisit(dto: SaveVisitRequest): Observable<VisitsResponse> {
     return this.http.post<VisitsResponse>(`${this.baseUrl}`, dto);
   }
 
-  /**
-   * (Antiguo) Obtiene visitas próximas de una casa en particular (sin filtros de HU-10).
-   */
   getUpcomingVisitsByHouse(houseId: number): Observable<PagedResult<VisitResponse>> {
     const params = new HttpParams()
       .set('page', '0')
@@ -67,20 +56,6 @@ export class VisitsService {
     );
   }
 
-  /**
-   * HU-10: Obtiene todas las visitas disponibles según filtros (rango de fechas/hora y ubicación),
-   * con paginación y orden dinámico.
-   *
-   * @param page      Número de página (0-based)
-   * @param size      Tamaño de página
-   * @param sortBy    Campo por el cual ordenar (ej. "startDateTime")
-   * @param orderAsc  true para ascendente, false para descendente
-   * @param startFrom Fecha/hora mínima de inicio (ISO string), opcional
-   * @param startTo   Fecha/hora máxima de inicio (ISO string), opcional
-   * @param endFrom   Fecha/hora mínima de fin (ISO string), opcional
-   * @param endTo     Fecha/hora máxima de fin (ISO string), opcional
-   * @param locationId ID de la ubicación para filtrar, opcional
-   */
   getFilteredVisits(
     page: number,
     size: number,
@@ -109,15 +84,14 @@ export class VisitsService {
       { params }
     );
   }
-
-  /**
-   * HU-11: Agendar una visita enviando únicamente { visitId }.
-   * El backend extrae el buyerId del token.
-   */
-  scheduleVisit(dto: ScheduleVisitRequest): Observable<VisitsResponse> {
-    return this.http.post<VisitsResponse>(
+scheduleVisit(dto: ScheduleVisitRequest): Observable<VisitsResponse> {
+  const token = localStorage.getItem('token'); 
+  return this.http.post<VisitsResponse>(
       `${this.baseUrl}/schedule`,
-      dto
-    );
-  }
+      dto,
+      {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      }
+  );
+}
 }

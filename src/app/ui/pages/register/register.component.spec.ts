@@ -1,4 +1,3 @@
-// src/app/ui/pages/register/register.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
@@ -6,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { RegisterComponent } from './register.component';
 import { AuthService, RegisterRequest } from 'src/app/core/services/auth.service';
+import { NO_INTERNET_ERROR, NO_SERVER } from 'src/app/shared/errors/constant-error';
 
 describe('RegisterComponent (Jest)', () => {
   let component: RegisterComponent;
@@ -55,7 +55,6 @@ describe('RegisterComponent (Jest)', () => {
       const form = component.registerForm;
       expect(form.valid).toBe(false);
 
-      // Campos que deben fallar por required al inicio
       const requiredFields = [
         'name','lastname','document','phoneNumber',
         'dateOfBirth','email','password','confirmPassword'
@@ -66,7 +65,6 @@ describe('RegisterComponent (Jest)', () => {
         expect(ctrl.hasError('required')).toBe(true);
       });
 
-      // El campo 'role' tiene valor por defecto, no debe dar error required
       expect(form.get('role')!.hasError('required')).toBe(false);
     });
 
@@ -172,7 +170,7 @@ describe('RegisterComponent (Jest)', () => {
         throwError(() => new HttpErrorResponse({ status: 0 }))
       );
       component.onSubmit();
-      expect(component.errorMessage).toBe('Error de conexión. Intenta de nuevo más tarde.');
+      expect(component.errorMessage).toBe(NO_INTERNET_ERROR);
     });
 
     it('should show server error message on status >=500', () => {
@@ -180,7 +178,7 @@ describe('RegisterComponent (Jest)', () => {
         throwError(() => new HttpErrorResponse({ status: 500 }))
       );
       component.onSubmit();
-      expect(component.errorMessage).toBe('Error en el servidor. Por favor, inténtalo más tarde.');
+      expect(component.errorMessage).toBe(NO_SERVER);
     });
 
     it('should show backend message on 400 error', () => {

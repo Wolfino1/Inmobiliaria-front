@@ -62,7 +62,7 @@ describe('MyHousesPageComponent', () => {
       } as SellerHouseQueryParams);
       expect(component.houses).toEqual(fakeHouses);
       expect(component.totalElements).toBe(2);
-      expect(component.totalPages).toBe(1); // Math.ceil(2 / 10) === 1
+      expect(component.totalPages).toBe(1);
       expect(component.pages).toEqual([0]);
       expect(component.isLoading).toBe(false);
       expect(component.error).toBeNull();

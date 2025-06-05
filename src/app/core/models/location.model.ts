@@ -1,4 +1,3 @@
-// location.model.ts
 import { City } from './city.model';
 
 export interface Location {

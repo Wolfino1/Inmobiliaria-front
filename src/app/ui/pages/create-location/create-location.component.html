@@ -7,7 +7,6 @@
       <main class="admin-content">
         <h2>Crear Ubicación</h2>
 
-        <!-- Formulario solo visible a ADMIN -->
         <ng-container *ngIf="isAdmin; else noAccess">
           <app-location-form (created)="onLocationCreated($event)"></app-location-form>
         </ng-container>
@@ -15,10 +14,8 @@
           <p class="access-denied">No tienes permisos para crear ubicaciones.</p>
         </ng-template>
 
-        <!-- Buscador accesible para todos -->
         <app-location-search (search)="onSearch($event)"></app-location-search>
 
-        <!-- Tabla accesible para todos -->
         <app-location-table
           [locations]="locations"
           [totalElements]="totalElements"

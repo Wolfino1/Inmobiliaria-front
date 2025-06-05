@@ -6,15 +6,12 @@
   </div>
 
   <div class="navbar-right">
-    <!-- Siempre disponible -->
     <a class="sell-button" routerLink="/sell">Vende</a>
 
-    <!-- No autenticado -->
     <ng-container *ngIf="!isLoggedIn">
       <a class="login-button" routerLink="/login">Ingresar</a>
     </ng-container>
 
-    <!-- Autenticado -->
     <ng-container *ngIf="isLoggedIn">
       <div class="user-menu">
         <span class="greeting" (click)="toggleMenu()">
