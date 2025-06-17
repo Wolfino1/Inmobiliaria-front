@@ -82,7 +82,7 @@ describe('LoginComponent', () => {
     component.loginForm.setValue({ email: 'o@b.com', password: 'pwd' });
     component.onSubmit();
 
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/schedule']);
   });
 
   it('should set NO_INTERNET_ERROR when navigator.onLine is false', () => {

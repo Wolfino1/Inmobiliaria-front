@@ -33,7 +33,6 @@ export class CreateHouseComponent implements OnInit {
       address:               ['', [Validators.required, Validators.maxLength(100)]],
       numberOfRooms:         [null, [Validators.required, Validators.min(0)]],
       numberOfBathrooms:     [null, [Validators.required, Validators.min(0)]],
-      sellerId:              [null, [Validators.required, Validators.min(1)]],
       description:           ['', [Validators.required, Validators.maxLength(200)]],
       idCategory:            [null, Validators.required],
       idLocation:            [null, [Validators.required, Validators.min(1)]],

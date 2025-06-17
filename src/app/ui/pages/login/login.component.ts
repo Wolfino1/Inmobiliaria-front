@@ -46,8 +46,12 @@ export class LoginComponent implements OnInit {
           else if (role === 'SELLER') {
             this.router.navigate(['/propiedades/mis-casas']);
           }
+          else if (role === 'BUYER') {
+            this.router.navigate(['/schedule']);
+          }
           else {
             this.router.navigate(['/home']);
+            
           }        
         },
         error: (err: HttpErrorResponse) => {
